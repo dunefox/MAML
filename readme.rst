@@ -1,9 +1,11 @@
 Mathematics and Applications of Machine Learning
 ================================================
 
-* Lecturer: Dirk - André Deckert
-* Time: Wednesday, 14:00-16:00
-* Location: Lecture Hall A 027
+* **Insitution:** Mathematical Institute, LMU Munich
+* **Term:** Winter semester 2016/17
+* **Lecturer:** Dirk - André Deckert, deckert@math.lmu.de
+* **Time:** Wednesday, 14:00-16:00
+* **Location:** Lecture Hall A 027
 
 Description
 -----------
