@@ -1,0 +1,8 @@
+__pycache__/
+build/
+papers/
+
+*.DS_Store
+*.pyc
+*.swp
+tags

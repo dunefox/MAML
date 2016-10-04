@@ -1,0 +1,28 @@
+<div id="js_ex" style="padding: 20px 0px;">
+
+    <p id="js_ex_text" style="padding: 10px; background: #111; color: #eee;">
+        -- click write and clear ---
+    </p>
+
+    <button id="js_ex_write">
+        write
+    </button>
+    <button id="js_ex_clear">
+        clear
+    </button>
+</div>
+
+<script type='text/javascript'>
+    p = document.getElementById('js_ex_text');
+
+    buttonWrite = document.getElementById('js_ex_write');
+    buttonWrite.onclick = function() {
+        p.innerHTML = 'Hello <strong>js</strong> world!';
+    };
+
+    buttonClear = document.getElementById('js_ex_clear');
+    buttonClear.onclick = function() {
+        p.innerHTML = ' -- nothing here, click write --';
+    };
+</script>
+
