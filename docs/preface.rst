@@ -1,5 +1,5 @@
-Mathematics and Applications of Machine Learning
-================================================
+Preface
+=======
 
 * **Insitution:** Mathematical Institute, LMU Munich
 * **Term:** Winter semester 2016/17
@@ -20,3 +20,18 @@ Therefore, basic knowledge in Python programming and access to a computer with
 a Python development environment is expected -- and will be required to
 complete the exercises. If time permits and depending on the interest, we may
 furthermore discuss aspects of recurrent networks and reinforcement learning.
+
+Supplementary material
+----------------------
+
+The lecture will not follow one particular text-book. Rather we will pick out some topics here and there. However, the following references provide some sources: 
+
+Test the references 
+
+:cite:`nielsen_neural_2015`
+:cite:`gael_scipy_2016`
+:cite:`bishop_pattern_2007`
+:cite:`russell_artificial_2010`
+:cite:`mohri_foundations_2012`
+
+.. bibliography:: references.bib

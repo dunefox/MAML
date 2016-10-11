@@ -12,7 +12,9 @@ Contents:
     :maxdepth: 2
     :numbered:
 
-    Test_reST.rst
+    preface.rst
+
+    ./test/Test_reST.rst
 
 Indices and tables
 ==================

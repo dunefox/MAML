@@ -7,11 +7,16 @@ Ok, here is a formula with a label
     f(x) = W x + b
     :label: test
 
-And we can refer to this equation as Eq. :eq:`test`. And this is an inline formula :math:`f(x)`.
+.. math::
+    \begin{align}
+        F(b) - F(a) &= \int_a^b f(x) dx
+    \end{align}
+
+And we can refer to this equation as Eq. :eq:`test`. And this is an inline formula :math:`f(x)`. It is also possible to refer to $\eqref{test1}$.
 
 We can immediately plot the function. Here, for :math:`W=2` and :math:`b=1`:
 
-.. plot:: matplot.py
+.. plot:: test/matplot.py
     :include-source:
 
 For the plot we have used the code:
