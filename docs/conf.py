@@ -21,6 +21,9 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../.'))
 
+# add custom extensions directory to python path
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '_extensions'))
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -32,18 +35,21 @@ sys.path.insert(0, os.path.abspath('../.'))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     # 'sphinx.ext.imgmath',
     'sphinx.ext.mathjax',
+    'sphinx.ext.graphviz',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     #'sphinx.ext.githubpages',
     'matplotlib.sphinxext.plot_directive',
     'sphinx_paramlinks',
-    'sphinxcontrib.bibtex'
+    'sphinxcontrib.bibtex',
+    'numsec'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -126,8 +132,7 @@ pygments_style = 'sphinx'
 # keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
-
+todo_include_todos = 1
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -210,15 +215,14 @@ html_static_path = ['_static']
 
 # If true, links to the reST sources are added to the pages.
 #
-# html_show_sourcelink = True
+html_show_sourcelink = False
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #
 # html_show_sphinx = True
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-#
-# html_show_copyright = True
+# html_show_copyright = False
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the

@@ -1,0 +1,10 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Mathematics and Applications of Machine Learning}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Description}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Disclaimer}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Text-books and supplementary material}{5}{chapter.2}
+\contentsline {chapter}{\numberline {3}Steinbruch}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}This is a section}{8}{section.3.1}
+\contentsline {chapter}{\numberline {4}References}{11}{chapter.4}
+\contentsline {chapter}{\numberline {5}Indices and tables}{13}{chapter.5}
+\contentsline {chapter}{Bibliography}{15}{chapter*.12}

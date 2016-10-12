@@ -1,5 +1,5 @@
 __pycache__/
-build/
+_build/
 papers/
 
 *.DS_Store

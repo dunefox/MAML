@@ -1,4 +1,5 @@
-# Mathematics and Applications of Machine Learning
+Mathematics and Applications of Machine Learning
+================================================
 
 * **Institution:** Mathematical Institute, LMU Munich
 * **Term:** Winter semester 2016/17
@@ -6,7 +7,8 @@
 * **Time:** Wednesday, 14:00-16:00
 * **Location:** Lecture Hall A 027
 
-## Description
+Description
+-----------
 
 This course will give an introduction to selected topics on machine learning.
 We will start from the basic perceptron and proceed with support vector
@@ -19,7 +21,8 @@ a Python development environment is expected -- and will be required to
 complete the exercises. If time permits and depending on the interest, we may
 furthermore discuss aspects of recurrent networks and reinforcement learning.
 
-## Disclaimer
+Disclaimer
+----------
 
 As always, these notes have been written in quite a haste during the semester
 and will contain lots of typos. If you find a typo please help to improve these
