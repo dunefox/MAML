@@ -19,6 +19,10 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+.PHONY: run
+run:
+	open $(BUILDDIR)/html/index.html
+
 .PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"

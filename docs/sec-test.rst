@@ -20,7 +20,7 @@ And we can refer to this equation as Eq. :eq:`test`. And this is an inline formu
 
 We can immediately plot the function. Here, for :math:`W=2` and :math:`b=1`:
 
-.. plot:: test/matplot.py
+.. plot:: sec-test/matplot.py
     :include-source:
 
 For the plot we have used the code:
@@ -41,12 +41,12 @@ This is something taken from [TESTCIT2016]_
 Here is some JavaScript
 
 .. raw:: html
-    :file: buttons.html
+    :file: sec-test/buttons.html
 
 And here an interactive plot:
 
 .. raw:: html
-    :file: plot.html
+    :file: sec-test/plot.html
 
 .. _sec-thisone:
 
@@ -129,6 +129,6 @@ GraphViz
     }
 
 References
-==========
+----------
 
 .. [TESTCIT2016] This is a great paper.

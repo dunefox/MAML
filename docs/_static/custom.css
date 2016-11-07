@@ -13,26 +13,40 @@ span.eqno {
 
 .toggle .header {
     display: inline-block;
+    font-size: 10pt;
     border: 1pt solid #777;
-    background-color: #d0d0a0;
+    background-color: #DBEDFF;
     border-radius: 5px;
-    padding: 0.2em;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
 }
 
-.toggle .header:after {
-}
-
-.toggle .header.open:after {
+.homework {
+    display: block;
+    background-color: #DBEDFF;
+    border: 1pt solid #777;
+    border-radius: 5px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
 }
 
 .proof {
     display: block;
+    background-color: #FFF2DB;
     border: 1pt solid #777;
-    background-color: #d0d0a0;
-    border-radius: 15px;
-    padding: 0.5em;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+    border-radius: 5px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
 }
