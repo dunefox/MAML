@@ -175,6 +175,7 @@ modeled by
             1\\
             1
         \end{pmatrix}.
+        :label: eq-weight-vector
 
     .. container:: toggle
             
@@ -184,7 +185,7 @@ modeled by
 
         .. container:: homework
 
-            1. Check if :math:`f` in :eq:`eq:lin-model` with the weight vector
+            1. Check if :math:`f` in :eq:`eq-lin-model` with the weight vector
                given in :eq:`eq-weight-vector` decribes an AND-gate correctly and
                note that :math:`w` is by no means unique.
                
@@ -301,17 +302,15 @@ update rule defines the 'Perceptron'.
 
     .. container:: homework
 
-        1. Implement a Perceptron for the 16 logical gates.
-           
-        2. Recall the geometric interpretation of the equation:
+        Have a look at the Perceptron implementation in
+        [`Link <http://www.mathematik.uni-muenchen.de/~deckert/light-and-matter/teaching/WS1617/src/linear_classifiers/>`_]: 
+                   
+        a. What effect does the learning rate have?
+        
+        b. What happens when the training data cannot be separated by a hyper-plane?
 
-            .. math::
-                w\cdot x = 0
-
-        3. Check all 16 bitwise logic gates and note which can be 'learned'
-           by the model :eq:`eq-lin-model` and which not -- in the latter case, discuss
-           why not.
-
+        c. Note that the instant all training data was classified correctly.
+           The perceptron stops to update the weight vector. Is this a feature or a bug?
 
 Adaline
 ^^^^^^^
