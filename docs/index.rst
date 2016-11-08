@@ -6,7 +6,7 @@
 Mathematics and Applications of Machine Learning
 ================================================
 
-Version: 2016-10-27
+Version: 2016-11-08
 
 Contents:
 
