@@ -478,7 +478,7 @@ Next, we discuss an Python implementation of the Perceptron discussed above.
         the training data is presented to the Perceptron. How could the
         dependency be suppressed?
 
-Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron.ipynb/>`_] 
+Find the full implementation here: [`Link <https://gitlab.com/MAML/blob/master/src/First%20steps/iris_perceptron.ipynb/>`_] 
 
 Adaline
 ^^^^^^^
@@ -486,4 +486,4 @@ Adaline
 Python implementation
 """""""""""""""""""""
 
-Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
+Find the full implementation here: [`Link <https://gitlab.com/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
