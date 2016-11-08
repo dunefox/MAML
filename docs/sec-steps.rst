@@ -486,4 +486,4 @@ Adaline
 Python implementation
 """""""""""""""""""""
 
-Find the full implementation here: [`https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_adn_adaline.ipynb`_] 
+Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
