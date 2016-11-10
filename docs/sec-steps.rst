@@ -452,6 +452,15 @@ Next, we discuss an Python implementation of the Perceptron discussed above.
     The number of misclassification per epoch is then append to the list
     ``train_errors``.
 
+After loading to training data set :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`
+into the two arrays ``X_train`` and ``Y_train`` the Perceptron can be
+initializes and trained as follows::
+
+    ppn = Perceptron(X.shape[1])
+    ppn.learn(X_train, Y_train, eta=0.1, epochs=100)
+
+Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron.ipynb/>`_] 
+
 .. container:: toggle
         
     .. container:: header
@@ -460,8 +469,7 @@ Next, we discuss an Python implementation of the Perceptron discussed above.
 
     .. container:: homework
 
-        Have a look at the Perceptron implementation in:
-        [`Link <http://www.mathematik.uni-muenchen.de/~deckert/light-and-matter/teaching/WS1617/src/linear_classifiers/>`_]: 
+        Have a look at the Perceptron implementation (link given above):
                    
         a. What effect does the learning rate have? Examine a situation is
         which the learning rate is too high and too low and discuss both cases.
@@ -470,20 +478,80 @@ Next, we discuss an Python implementation of the Perceptron discussed above.
         a hyperplane? Examine problematic situation and discuss these -- for
         example, by generating fictitious data points.
 
-        c. Note that the instant all training data was classified correctly.
-        The Perceptron stops to update the weight vector. Is this a feature or
+        c. Note that the instant all training data was classified correctly
+        the Perceptron stops to update the weight vector. Is this a feature or
         a bug?
 
         d. Discuss the dependency of the learning success on the order in which
         the training data is presented to the Perceptron. How could the
         dependency be suppressed?
 
-Find the full implementation here: [`Link <https://gitlab.com/MAML/blob/master/src/First%20steps/iris_perceptron.ipynb/>`_] 
+Problems with the Perceptron
+""""""""""""""""""""""""""""
+
+[Coming soon]
 
 Adaline
 ^^^^^^^
 
+[Coming soon]
+
 Python implementation
 """""""""""""""""""""
 
-Find the full implementation here: [`Link <https://gitlab.com/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
+As we have already noted, the Adaline learning rule is the same as the one of
+the Perceptron. Hence, we only need to change the learning rule implemented in the method ``learn`` of the ``Perceptron`` class. The ``Adaline`` class can therefore we created as follows::
+
+    class Adaline(Perceptron):
+
+        def learn(self, X_train, Y_train, eta=0.01, epochs=1000):
+            '''
+            fit training data according to eta and n_iter
+            and log the errors in errors_
+            '''
+
+            # we initialize two list, each for the misclassifications and the cost function
+            self.train_errors_ = []
+            self.train_loss_ = []
+
+            # for all the epoch
+            for _ in range(epochs):
+                # classify the traning features
+                Z = self.classify(X_train)
+                # count the misqualifications for the logging
+                err = 0
+                for z, y in zip(Z, Y_train):
+                    err += int(z != y)
+                # ans save them in the list for later use
+                self.train_errors_.append(err)
+                
+                # compute the activation input of the entire traning features
+                output = self.activation_input(X_train)
+                # and then the deviation from the labels
+                delta = Y_train - output
+                # the following is an implmentation of the adaline update rule
+                self.w_[1:] += eta * X_train.T.dot(delta)
+                self.w_[0] += eta * delta.sum()
+                # and finally, we record the loss function
+                loss = (delta ** 2).sum() / 2.0
+                # and save it for later use
+                self.train_loss_.append(loss)
+
+            return
+
+* Line 1 defines the ``Adaline`` class and a child of the ``Perceptron`` one.
+  It thus inherits all the methods and variables of the ``Perceptron`` class.
+* Line 11 introduces a similar variable as ``train_errors`` that will store the value of the loss function 
+  per epoch.
+* Line 14 is again the ``for`` loop over the epochs:
+* In line 16 the classification of all training data points is conducted.
+* Lines 17-22 only count the number of misclassification which is then appended
+  to the list ``train_errors_``.
+* The update rule is implemented in Lines 24-30. First, the input activation of
+  all the training data is computed and the array ``delta`` stores the set
+  :math:`(y^{(i)}-w \cdot x^{i)})`.
+* This ``delta`` array is then used to compute the updated weight vector stored in ``w_`` in lines 29-30.
+* The last two lines in this ``for`` loop compute the loss value for this epoch
+  and store it in the list ``train_loss_``.
+
+Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
