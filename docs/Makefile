@@ -23,6 +23,11 @@ html:
 run:
 	open $(BUILDDIR)/html/index.html
 
+.PHONY: pub
+pub: $(MAIN)
+	chmod -R 755 $(BUILDDIR)/html/.
+	rsync -e ssh -vramlHP --numeric-ids --delete --delete-excluded --delete-after --delay-updates $(BUILDDIR)/html/. deckert@math12.mathematik.uni-muenchen.de:~/wwwpublic/light-and-matter/teaching/WS1617/.
+
 .PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"

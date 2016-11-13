@@ -911,7 +911,8 @@ Hence, we may formulate the Adaline algorithm as follows:
            after misclassification as it was the case for the
            Perceptron and batch updates as it is the case for Adaline.
                    
-Python implementation """""""""""""""""""""
+Python implementation 
+"""""""""""""""""""""
 
 As we have already noted, the Adaline learning rule is the same as the one of
 the Perceptron. Hence, we only need to change the learning rule implemented in the method ``learn`` of the ``Perceptron`` class. The ``Adaline`` class can therefore we created as follows::
