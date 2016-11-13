@@ -165,7 +165,7 @@ to be big enough for linear (or approximately) linear classification problems.
       for weigths :math:`w\in\mathbb R^n` and threshold :math:`b\in\mathbb R`;
 
     * In the following absorb the threshold :math:`b` into the weight vector
-      :math:`w` and therefore add a :math:`1` at the first position of
+      :math:`w` and therefore add the coefficient :math:`1` at the first position of
       all data vectors :math:`x^{(i)}`, i.e.
 
         .. math::
@@ -175,9 +175,16 @@ to be big enough for linear (or approximately) linear classification problems.
     * so that 
         
         .. math::
-            \tilde w\cdot \tilde x = w\cdot x + b
+            \tilde w\cdot \tilde x = w\cdot x + b.
 
-      where we will omit the overscript tilde in the future.
+    * Instead of an overset tilde, we will use the following convention to
+      distinguish between vectors in :math:`\mathbb R^{n+1}` and :math:`\mathbb R^n`:
+
+        .. math::
+        	\mathbb R^{n+1} \ni x &= (1, \mathbf x) \in \mathbb R\times\mathbb R^n \\
+        	\mathbb R^{n+1} \ni w &= (w_0, \mathbf w) \in \mathbb R\times\mathbb R^n
+
+      and unless 
     
 **Example:**  The bitwise AND-gate
 
@@ -276,6 +283,12 @@ rule* and can be spell out as follows:
             Else, update the weight vector :math:`w` *appropriately* according to an *update rule*, 
             and go back to **STEP 2**. 
 
+The following sketch is a visualization of the feedback loop for the learning rule:
+
+.. figure:: ./figures/keynote/keynote.004.jpeg
+    :width: 80%
+    :align: center
+
 The important step is the *update rule* which we discuss next.
 
 Update rule
@@ -344,7 +357,240 @@ Why does this update rule lead to a *good* choice of weights :math:`w`?
 The model :eq:`eq-lin-model` for :math:`f`, i.e., hypothesis set, and this
 particular learning and update rule is what defines the 'Perceptron'.
 
-Python implementation
+Convergence
+"""""""""""
+
+Now that we have a heuristic understanding why the learning and update rule
+chosen for the Perceptron works, we have a look at what can be said
+mathematically; see :cite:`varga_neural_1996` for a more detailed discussion.
+
+First let us make precise what we mean by 'linear separability':
+
+.. container:: definition
+
+    **Definition: (Linear seperability)** Let :math:`A,B` be two sets in :math:`\mathbb R^n`. Then:
+
+    1. :math:`A,B` are called *linearly seperable* iff there is a
+    
+        :math:`w\in\mathbb R^{n+1}` such that
+
+            .. math:: 
+                \forall\, \mathbf a\in A,\,\mathbf b\in B: 
+                \quad 
+                w\cdot a \geq 0 \quad \wedge 
+                \quad
+                w\cdot b < 0.
+
+    2. :math:`A,B` are called *absolutely linearly seperable* iff there is a
+
+        :math:`w\in\mathbb R^{n+1}` such that
+
+            .. math:: 
+                \forall\, \mathbf a\in A,\,\mathbf b\in B: 
+                \quad 
+                w\cdot a > 0 \quad \wedge 
+                \quad
+                w\cdot b < 0.
+
+The learning and update rule algorithm of the Perceptron can be formulated in
+terms of the following algorithm:
+
+.. container:: algorithm
+
+    **Algorithm: (Perceptron)** 
+
+        **PREP:** 
+        
+            Prepare the training data :math:`(\mathbf x^{(i)},y^{(i)})_{1\leq
+            i\leq M}`. Let :math:`A` and :math:`B` be the sets of elements
+            :math:`x^{(i)}\in\mathbb R^{n+1}=(1,\mathbb x^{(i)})` whose class labels
+            fulfill :math:`y^{(i)}=+1` and :math:`y^{(i)}=-1`, respectively.
+
+        **START:** 
+        
+            Initialize the weight vector :math:`w^{(0)}\in\mathbb R^{n+1}` with
+            random numbers and set :math:`t:=0`.
+
+        **STEP:** 
+        
+            Choose :math:`x\in'\mathbb \in A,B` at random:
+
+            * If :math:`x\in A, w^{(t)}\cdot x \geq 0`: goto **STEP**.
+            * If :math:`x\in A, w^{(t)}\cdot x < 0`: goto **UPDATE**.
+            * If :math:`x\in B, w^{(t)}\cdot x \leq 0`: goto **STEP**.
+            * If :math:`x\in B, w^{(t)}\cdot x > 0`: goto **UPDATE**.
+
+        **UPDATE:** 
+        
+            * If :math:`x\in A`, then set :math:`w^{(t+1)}:=w^{(t)} + x`,
+              increment :math:`t\mapsto t+1`, and goto **STEP**.
+            * If :math:`x\in B`, then set  :math:`w^{(t+1)}:=w^{(t)} - x`,
+              increment :math:`t\mapsto t+1`, and goto **STEP**.
+
+* Note that for an implementation of this algorithm we will also need an exit
+  criterion so that the algorithm does not run forever. 
+
+* This is usually done by specifying how many times the entire training set
+  is run through **STEP**, a number which is often referred to as number of
+  *epochs*.
+
+* Note further, that for sake of brevity , the learning rate :math:`eta` was
+  chosen to equal :math:`1/2`.
+
+Frank Rosenblatt already showed convergence of the algorithm above in the case of finite and linearly separable training data:
+
+.. container:: theorem
+
+    **Theorem: (Perceptron convergence)**
+
+        Let :math:`A,B` be finite sets and linearly seperable, then the number of updates performed by the Perceptron algorithm stated above is finite.
+
+    .. container:: toggle
+            
+        .. container:: header
+        
+            Proof
+
+        .. container:: proof
+
+            * As a first step, we observe that since :math:`A,B` are finite
+              sets that are linear seperable, they are also absolutely
+              seperable due to:
+
+            .. container:: theorem
+
+                **Proposition:**
+
+                Let :math:`A,B` be finite sets of :math:`\mathbb R^{n+1}`:
+                :math:`A,B` are linearly seperable :math:`\Leftrightarrow`
+                :math:`A,B` are absolutely linearly seperable.
+                
+                .. container:: toggle
+                        
+                    .. container:: header
+                    
+                        Proof
+
+                    .. container:: proof
+
+                        Homework.
+
+            * Furthermore, we observe that without restriction of generality
+              (WLOG) we may assume the vectors :math:`x\in A\cap B` to be
+              normalized because
+              
+                .. math::
+                    w\cdot x > 0 \,  \vee \, w\cdot x < 0 
+                    \Leftrightarrow 
+                    w\cdot \frac{x}{\|x\|} > 0 \,  \vee \, w\cdot \frac{x}{\|x\|} < 0.
+
+            * Let us define :math:`T=A\cap (-1)B`, i.e., :math:`T` is the union
+              of :math:`A` and the element of :math:`B` times :math:`(-1)`.
+
+            * Since :math:`A,B` absolutely linearly seperable there is a
+              :math:`w^*\in\mathbb R^{n+1}` such that for all :math:`x\in T`
+
+                .. math::
+                    w^{*}\cdot x > 0.
+                    :label: eq-abs-lin
+
+              And moreover, we also may WLOG assume that :math:`w^{*}` is normalized.
+
+            Let us assume that some time after the :math:`t`-th update a point
+            :math:`x\in T` is picked in **STEP** that leads to a
+            misclassification
+
+                .. math::
+                    w^{(t)} \cdot x < 0
+
+            so that **UPDATE** will be called which updates the weight vector according to
+
+                .. math::
+                    w^{(t+1)} := w^{(t)} + x.
+
+            Note that both cases of **UPDATE** are treated with this update since in the definition of :math:`T` we have already included the 'minus' sign.
+
+            Now in order to infer a bound on the number of update :math:`t` in the
+            Perceptron algorithm above, consider the quantity
+
+                .. math::
+                    1\leq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
+                    :label: eq-denum
+
+            To bound this quantity also from below, we consider first:
+
+                .. math::
+                    w^{*}\cdot w^{(t+1)} = w^{*}\cdot w^{(t)} + w^{*}\cdot x.
+
+            Thanks to :eq:`eq-abs-lin` and the finiteness of :math:`A,B`, we know that
+
+                .. math:
+                    \delta := \min\{w\cdot x \,|\, x \in T\} > 0.
+                    :math: eq-delta
+
+            This facilitates the estimate
+                
+                .. math::
+                    w^{*}\cdot w^{(t+1)} \leq  w^{*}\cdot w^{(t)} + \delta,
+
+            which, by induction, gives
+
+                .. math::
+                    w^{*}\cdot w^{(t+1)} \leq  w^{*}\cdot w^{(0)} + (t+1)\delta.
+                    :label: eq-ing-1
+
+            Second, we consider the denumerator of :eq:`eq-denum`:
+
+                .. math:
+                    \| w^{(t+1)} \|^2 = \|w^{(t)}\|^2 + 2 w^{(t)}\cdot x + \|x\|^2.
+
+            Recall that :math:`x` was misclassified by weight vector :math:`w^{(t)}` so that :math:`w^{(t)}\cdot x<0`. This yields the estimate
+                
+                .. math:
+                    \| w^{(t+1)} \|^2 \geq  \|w^{(t)}\|^2 + \|x\|^2.
+
+            Again by induction, and recalling the assuption that :math:`x` was normalized, we get:
+
+                .. math:
+                    \| w^{(t+1)} \|^2 \geq  \|w^{(0)}\|^2 + (t+1).
+                    :label: eq-ing-2
+
+            Both bounds, :eq:`eq-ing-1` and :eq:`eq-ing-1`, together with
+            :eq:zeq-denum`, give rise to the inequalities
+
+                .. math::
+                    1 \leq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} 
+                    \leq
+                    \frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
+                    :label: eq-fin-est
+
+            The right-hand side would grow :math:`O(\sqrt t)` but has to be smaller one. Hence, :math:`t`, i.e., the number of updates, must be bounded by a finite number.
+
+.. container:: toggle
+        
+    .. container:: header
+    
+        Homework
+
+    .. container:: homework
+
+        1. What is the geometrical meaning of :math:`\delta` in :eq:`eq-delta`
+           in the proof above?
+
+        2. Consider the case :math:`w^{(0)}=0` and give an upper bound on the
+           maximum number of updates.
+
+        3. Carry out the analysis above including an arbitrary learning rate
+           :math:`\eta`. How does :math:`\eta` influence the number of
+           updates?
+
+Finally, though this result is reassuring it needs to be emphasized that it is
+rather academic. 
+
+* The convergence theorem only holds in the case of linear separability of the
+  test data, which in most interesting cases is not given.
+
+Python implementation 
 """""""""""""""""""""
 
 Next, we discuss an Python implementation of the Perceptron discussed above.
@@ -489,15 +735,183 @@ Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/
 Problems with the Perceptron
 """"""""""""""""""""""""""""
 
-[Coming soon]
+* As discussed, the convergence of the Perceptron algorithm is only guaranteed
+  in the case of linearly separable test data. 
+* If linear separability is not provided, in each epoch will be at least one
+  update. 
+* Thus, in general we need a good exit criterion for the algorithm to
+  bound the maximum number of updates.
+* The updates stop the very instant the entire test data is classified correctly,
+  which might lead to poor generalization properties of the resulting
+  classifier to unknown data.
 
 Adaline
 ^^^^^^^
 
-[Coming soon]
+* The Adaline algorithm will overcome some of the short-comings of the one of Perceptron.
+* The basic design is almost the same:
 
-Python implementation
-"""""""""""""""""""""
+    .. figure:: ./figures/keynote/keynote.005.jpeg
+        :width: 80%
+        :align: center
+
+* The first difference w.r.t. to the Perceptron is the additional activation
+  function :math:`alpha`. We shall call :math:`w\cdot x` *activation input* and
+  :math:`\alpha(w\cdot x)` *activation output*.
+
+* We will discuss different choices of activation functions later. For now let
+  us simply use: 
+  
+    .. math::
+        \alpha(z)=z.
+
+* The second difference is that the activation output is used as in feedback
+  loop for the update rule.
+
+* The advantage is that, provided :math:`\alpha:\mathbb R\to\mathbb R` is
+  regular enough, we may make use of analytic optimization theory in order to find an in some sense ;optimal' choice of weights :math:`w\in\mathbb R^{n+1}`.
+
+* This was not possible in the case of the Perceptron because the signum
+  function is not differentiable.
+
+Update rule
+"""""""""""
+
+* Recall that an 'optimal' choice of weights :math:`w\in\mathbb R^{n+1}` should fulfill two properties:
+
+    1. It should 'accurately' classify the training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`,
+    2. and it should 'generalize' well unknown data.
+
+* In order to make use of analytic optimization theory, one may attempt to
+  encode the quality of weights w.r.t. these two properties in form of a
+  function that attains smaller and smaller values the better the weights
+  fulfill these properties.
+
+* This function is called many names, e.g., 'loss', 'regret', 'cost', 'energy',
+  or 'error' function. We will use the term 'loss function'.
+
+* Of course, depending on the classification task, there are many choice. Maybe
+  one of the simplest examples:
+
+    .. math::
+        L(w) := \frac12 \sum_{i=1}^M \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
+        :label: eq-L
+
+  which is the accumulated squarred euclidean distance between the particular
+  labels of the test data :math:`y^{(i)}` and the corresponding prediction
+  :math:`\alpha(w\cdot x^{(i)})` given by Adaline for the current weight vector
+  :math:`w`.
+
+* Note that the loss function dependents not only on :math:`w` but also on the
+  entire training data set :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`. The
+  latter, however, is assumed to be fixed which is why the dependence of
+  :math:`L(w)` on it will be suppressed in out notation.
+
+* From its definition the loss function in :eq:`eq-L` has the desired
+  property that it grows and decreases whenever the number of
+  misclassification grows or decreases, respectively.
+
+* Furthermore, it does so smoothly, which allows for the use of analytic
+  optimization theory.
+
+Learning and update rule
+""""""""""""""""""""""""
+
+* Having encoded the desired properties of 'optimal' weights :math:`w\in\mathbb
+  R^{n+1}` in terms a global minimum of the function :math:`L(w)`, the only
+  task left to do is to find this global minimum.
+
+* Depending on the function :math:`L(w)`, i.e., on the training data, this task
+  may be arbitrarily simple or difficult.
+
+* Consider the following heuristics in order to infer a possible learning
+  strategy:
+
+    * Say, we start with a weight vector :math:`w\in\mathbb R^{n+1}` and want to make an update
+
+        .. math::
+            w\mapsto \tilde w:=w + \delta w
+
+      in a favourable direction :math:`\delta w\in\mathbb R^{n+1}`.
+
+    * An informal Taylor expansion of :math:`L(\tilde w)` reveals
+
+        .. math::
+            L(\tilde w) = L(w) + \frac{\partial L(w)}{\partial w} \delta w + O(\delta w^2).
+
+    * In order to make the update 'favourable' we want that :math:`L(\tilde
+      w)\leq L(w)`.
+
+    * Neglecting the higher orders, this would mean:
+
+        .. math::
+            \frac{\partial L(w)}{\partial w} \delta w < 0.
+            :label: eq-L-diff
+
+    * In order to get rid of the unknown sign of :math:`\frac{\partial L(w)}{\partial
+      w}` we may choose:
+
+        .. math::
+            \delta w := - \eta \frac{\partial L(w)}{\partial w} 
+            :label: eq-L-deltaw
+
+      for some learning rate :math:`\eta\in\mathbb R^+`.
+
+    * Note that for the choice :eq:`eq-L-deltaw` the linear order
+      :eq:`eq-L-diff` becomes negative and therefore works to decrease the value
+      of :math:`L(w)`.
+
+Concretely, for our case we find:
+
+    .. math::
+        \frac{\partial L(w)}{\partial w} 
+        = 
+        -\sum_{i=1}^M 
+        \left(
+            y^{(i)}-\alpha(w\cdot x^{(i)})
+        \right)
+        \alpha'(w\cdot x^{(i)}) x^{(i)}.
+
+Hence, we may formulate the Adaline algorithm as follows:
+
+**INPUT:** Pre-labeled training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M\leq N}`
+
+    **STEP 1:** Initialize the weight vector :math:`w` to zero or conveniently
+    distributed random coefficients.
+
+    **STEP 2:** For a certain number of epochs:
+    
+        a) Compute :math:`L(w)`
+
+        b) Update the weights :math:`w` according to
+
+            .. math::
+                w \mapsto \tilde w := w + \eta \sum_{i=1}^M 
+                \left(
+                    y^{(i)}-\alpha(w\cdot x^{(i)})
+                \right)
+                \alpha'(w\cdot x^{(i)}) x^{(i)} 
+    
+.. container:: toggle
+
+    .. container:: header
+
+        Homework
+
+    .. container:: homework
+
+        1. Prove that even in the linearly seperable case, the above Adaline
+           algorithm does not need to converge. Do this by constructing
+           a simple example of training data and a special choice of learning rate
+           :math:`\eta`.
+
+        2. What is the influence of large or small values of :math:`\eta`?
+
+        3. Discuss the advantages/disadvantages of immediate weight updates
+           after misclassification as it was the case for the
+           Perceptron and batch updates as it is the case for Adaline.
+                   
+Python implementation """""""""""""""""""""
 
 As we have already noted, the Adaline learning rule is the same as the one of
 the Perceptron. Hence, we only need to change the learning rule implemented in the method ``learn`` of the ``Perceptron`` class. The ``Adaline`` class can therefore we created as follows::

@@ -13,6 +13,7 @@ span.eqno {
 
 .toggle .header {
     display: inline-block;
+    font-weight: bold;
     font-size: 10pt;
     border: 1pt solid #777;
     background-color: #DBEDFF;
@@ -28,6 +29,45 @@ span.eqno {
 .homework {
     display: block;
     background-color: #DBEDFF;
+    border: 1pt solid #777;
+    border-radius: 5px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
+.definition {
+    display: block;
+    background-color: #FFE9C3;
+    border: 1pt solid #777;
+    border-radius: 5px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
+.theorem {
+    display: block;
+    background-color: #C9FFB6;
+    border: 1pt solid #777;
+    border-radius: 5px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
+.algorithm {
+    display: block;
+    background-color: #FFB3AE;
     border: 1pt solid #777;
     border-radius: 5px;
     padding-top: 0.2em;
