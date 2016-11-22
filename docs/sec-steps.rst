@@ -514,7 +514,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
             Perceptron algorithm above, consider the quantity
 
                 .. math::
-                    1\leq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
+                    1\geq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
                     :label: eq-denum
 
             To bound this quantity also from below, we consider first:
@@ -524,43 +524,43 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
 
             Thanks to :eq:`eq-abs-lin` and the finiteness of :math:`A,B`, we know that
 
-                .. math:
+                .. math::
                     \delta := \min\{w\cdot x \,|\, x \in T\} > 0.
                     :math: eq-delta
 
             This facilitates the estimate
                 
                 .. math::
-                    w^{*}\cdot w^{(t+1)} \leq  w^{*}\cdot w^{(t)} + \delta,
+                    w^{*}\cdot w^{(t+1)} \geq  w^{*}\cdot w^{(t)} + \delta,
 
             which, by induction, gives
 
                 .. math::
-                    w^{*}\cdot w^{(t+1)} \leq  w^{*}\cdot w^{(0)} + (t+1)\delta.
+                    w^{*}\cdot w^{(t+1)} \geq  w^{*}\cdot w^{(0)} + (t+1)\delta.
                     :label: eq-ing-1
 
             Second, we consider the denumerator of :eq:`eq-denum`:
 
-                .. math:
+                .. math::
                     \| w^{(t+1)} \|^2 = \|w^{(t)}\|^2 + 2 w^{(t)}\cdot x + \|x\|^2.
 
             Recall that :math:`x` was misclassified by weight vector :math:`w^{(t)}` so that :math:`w^{(t)}\cdot x<0`. This yields the estimate
                 
-                .. math:
-                    \| w^{(t+1)} \|^2 \geq  \|w^{(t)}\|^2 + \|x\|^2.
+                .. math::
+                    \| w^{(t+1)} \|^2 \leq  \|w^{(t)}\|^2 + \|x\|^2.
 
             Again by induction, and recalling the assuption that :math:`x` was normalized, we get:
 
-                .. math:
-                    \| w^{(t+1)} \|^2 \geq  \|w^{(0)}\|^2 + (t+1).
+                .. math::
+                    \| w^{(t+1)} \|^2 \leq  \|w^{(0)}\|^2 + (t+1).
                     :label: eq-ing-2
 
-            Both bounds, :eq:`eq-ing-1` and :eq:`eq-ing-1`, together with
-            :eq:zeq-denum`, give rise to the inequalities
+            Both bounds, :eq:`eq-ing-1` and :eq:`eq-ing-2`, together with
+            :eq:`eq-denum`, give rise to the inequalities
 
                 .. math::
-                    1 \leq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} 
-                    \leq
+                    1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} 
+                    \geq
                     \frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
                     :label: eq-fin-est
 
