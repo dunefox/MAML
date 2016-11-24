@@ -1,6 +1,7 @@
 __pycache__/
 .ipynb_checkpoints/
 _build/
+backup/
 papers/
 
 *.DS_Store
