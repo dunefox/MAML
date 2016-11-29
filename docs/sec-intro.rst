@@ -1,7 +1,7 @@
 Introduction
 ============
 
-Refereces to start with
+References to start with
 -----------------------
 
 We will not follow one text-book. However, it will be good to have a couple of
