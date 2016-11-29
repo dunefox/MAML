@@ -543,7 +543,6 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
 
                 .. math::
                     \| w^{(t+1)} \|^2 = \|w^{(t)}\|^2 + 2 w^{(t)}\cdot x + \|x\|^2.
-                    :label: zeq-denum
 
             Recall that :math:`x` was misclassified by weight vector :math:`w^{(t)}` so that :math:`w^{(t)}\cdot x<0`. This yields the estimate
                 
@@ -557,7 +556,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
                     :label: eq-ing-2
 
             Both bounds, :eq:`eq-ing-1` and :eq:`eq-ing-2`, together with
-            :eq:`zeq-denum`, give rise to the inequalities
+            :eq:`eq-denum`, give rise to the inequalities
 
                 .. math::
                     1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} 
