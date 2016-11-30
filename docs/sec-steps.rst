@@ -970,3 +970,127 @@ the Perceptron. Hence, we only need to change the learning rule implemented in t
   and store it in the list ``train_loss_``.
 
 Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
+
+The learning rate parameter and preparation of training data
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+* We have introduced the learning rate :math:`\eta` in an ad-hoc fashion;
+* Not even in the linear separable case, we may expect convergence of the Adaline algorithm;
+* We can only expect to find a good approximation of the optimal choice of
+  weights :math:`w\in\mathbb R^{n+1}`;
+* But this will depend on the choice of the learning rate parameter.
+
+In the figure below, the learning rate :math:`\eta` was chosen too large.
+Instead of approximating the minimum value, the gradient descent algorithm even
+diverges.
+    
+.. plot:: ./figures/python/learning_rate_too_large.py
+    :width: 80%
+    :align: center
+
+In the next figure, the learning rate :math:`\eta` has been chosen too small.
+In case, the loss function has other local minima, the initial weight vector
+:math:`w` is coincidently chosen near such a local minimum, and the learning
+rate is too small, the gradient descent algorithm will converge too the nearest
+local minimum instead of the global minimum.
+    
+.. plot:: ./figures/python/learning_rate_too_small.py
+    :width: 80%
+    :align: center
+
+In the special case of a linear activation :math:`\alpha(z)=z` and a quadratic
+loss function such as :eq:`eq-L`, which we also used in our Python
+implementation, such a behavior cannot occur due to convexity. In more general
+settings that we will discuss later, a multitude of local minima can, however,
+be the generic case.
+
+Here is another bad scenario where we see that the gradient descent algorithm does not converge:
+
+.. plot:: ./figures/python/learning_rate_no_convergence.py
+    :width: 80%
+    :align: center
+
+Many improvements can be made with respect to the gradient descent algorithms
+which tend to work well in different situations. Here is a nice overview on
+popular optimization algorithms used in machine learning: `[URL] <http://sebastianruder.com/optimizing-gradient-descent/>`_
+
+In general, the learning rate :math:`\eta` will depend very much on the fluctuations in the features of your training data set. In order, to have comparable results it is therefore a good idea to normalize the training data. A standard procedure to do this is to transform the training data according to the following map
+
+.. math::
+    x^{(i)} \mapsto \widetilde x^{(i)} := \frac{x^{(i)} - \mu}{\sigma},
+
+where 
+
+.. math::
+    \mu:=\frac1M\sum_{i=1}^M x^{(i)}
+    
+is the empirical average and
+
+.. math::
+    \sigma:=\sqrt{\frac1M\sum_{i=1}^M (x^{(i)} - \mu)}
+
+is the standard variation.
+
+Online learning versus batch learning
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The learning and update rule of the Perceptron and Adaline have a crucial difference:
+    
+    * The Perceptron updates its weights accoridng to inspection of a sigle
+      data point :math:`(x^{(i)},y^{(i)})` of the training data
+      :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}` -- this is usually referred to
+      as 'online' (in the sense of 'real-time') or 'stochastic' (in the sense
+      that training data points are chosen at random) learning. 
+      
+    * The Adaline conducts an update after inspecting the whole training data
+      :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}` by means of computing the
+      gradient of the loss function :eq:`eq-L` that depends on the entire set
+      of training data -- this is usually referred to as 'batch' learning (in the sense that the whole batch of training data is used to compute an update of the weights).
+
+* While online learning has a strong dependence on the sequence of training
+  data points presented to the learner, batch learning can become
+  computationally very expensive.
+
+* A compromise between them two extremes is the so-called 'mini-batch'
+  learning. 
+  
+    * The entire batch of training data :math:`I=(x^{(i)},y^{(i)})_{1\leq i\leq
+      M}` is then split up into disjoint mini-batches
+      :math:`I_k:=(x^{(i)},y^{(i)})_{i_{k-1}\leq i\leq i_{k}}` for an appropriate
+      strictly increasing sequence of indices :math:`(i_k)_k` such that
+      :math:`I=\bigcup_k I_k`. 
+    * For each mini-batch :math:`I_k` the mini-batch loss function is computed
+        
+        .. math::
+            L(w) := \frac12 \sum_{i=i_{k-1}}^{i_k-1} \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
+
+      and the update of the weight vector :math:`w` is performed acordingly.
+
+* For appropriate chosen mini-batch sizes this mini-batch learning rule often
+  proves to faster than online or batch learning.
+    
+.. container:: toggle
+        
+    .. container:: header
+    
+        Homework
+
+    .. container:: homework
+
+        Turn our Adaline implementation into a mini-batch learner.
+
+
+Support Vector Machines
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The step from the Perceptron to Adaline mainly brings two advantages:
+
+1. We may now use analytic optimization theory;
+2. We can encode what we mean by optimal, i.e., by the terms 'accurately' and
+   'generalizes' of the introductory discussion, by the choice of the
+   corresponding loss function.
+
+This freedom leads to a rich class of linear classifiers. In this chapter we shall look at one of the most important examples, the so-called 'support vector machine' (SVM).
+
+[under construction]
+
