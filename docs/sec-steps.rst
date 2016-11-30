@@ -559,8 +559,8 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
             :eq:`eq-denum`, give rise to the inequalities
 
                 .. math::
-                    \frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
-                    :label: eq-fin-est
+                   1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} \geq\frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
+                   :label: eq-fin-est
 
             The right-hand side would grow :math:`O(\sqrt t)` but has to be smaller one. Hence, :math:`t`, i.e., the number of updates, must be bounded by a finite number.
 
