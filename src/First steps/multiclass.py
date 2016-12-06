@@ -226,6 +226,6 @@ X_train, Y_train = X_all[:train_samples], Y_all[:train_samples]
 X, Y = X_all[train_samples:], Y_all[train_samples:]
 
 mc = MultiClass(n_features, n_classes)
-mc.learn(X_train, Y_train, eta=0.005, epochs=10000)
+mc.learn(X_train, Y_train, eta=0.05, epochs=1000)
 plot_decision_regions(mc, X, Y, X_train, Y_train, n_classes, 0.01)
 plt.show()

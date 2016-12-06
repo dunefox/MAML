@@ -37,7 +37,7 @@ As an example of a typical of a binary classification problem let us consider:
 * thereby dividing the data points into two classes labeled :math:`-1` and :math:`+1`. 
             
 .. figure:: ./figures/linear_classification_data.png
-    :width: 80%
+    :width: 90%
     :align: center
 
     Labelled 2d example data points (:math:`x^{(i)}\in\mathbb R^2`) describing
@@ -84,7 +84,7 @@ The following plot shows the data points of the iris data set shown above with
 a possible hyperplane as decision boundary between the two different classes.
 
 .. figure:: ./figures/linear_classification_decission.png
-    :width: 80%
+    :width: 90%
     :align: center
 
     Decission boundaries for a possible classification function
@@ -116,7 +116,7 @@ The first model we will take a look is the so-called Perceptron model.
 It is a mathematical model inspired by a nerve cell:
 
 .. figure:: ./figures/MultipolarNeuron.png
-    :width: 80%
+    :width: 90%
     :align: center
 
     A sketch of a neuron (`source <https://commons.wikimedia.org/wiki/File:Blausen_0657_MultipolarNeuron.png>`_).
@@ -124,7 +124,7 @@ It is a mathematical model inspired by a nerve cell:
 The mathematical model can be sketched as follows:
 
 .. figure:: ./figures/keynote/keynote.003.jpeg
-    :width: 80%
+    :width: 90%
     :align: center
 
 * The input signals are given as a vector :math:`x\in\mathbb R^{n+1}`;
@@ -212,7 +212,7 @@ to be big enough for linear (or approximately) linear classification problems.
       :math:`y^{i}\in\{-1,+1\}`.
 
     .. plot:: ./figures/python/and-gate.py
-        :width: 80%
+        :width: 90%
         :align: center
 
     * The colors: red and blue denote the output values 0 or 1 of the AND-gate.;
@@ -286,7 +286,7 @@ rule* and can be spell out as follows:
 The following sketch is a visualization of the feedback loop for the learning rule:
 
 .. figure:: ./figures/keynote/keynote.004.jpeg
-    :width: 80%
+    :width: 90%
     :align: center
 
 The important step is the *update rule* which we discuss next.
@@ -752,7 +752,7 @@ Adaline
 * The basic design is almost the same:
 
     .. figure:: ./figures/keynote/keynote.005.jpeg
-        :width: 80%
+        :width: 90%
         :align: center
 
 * The first difference w.r.t. to the Perceptron is the additional activation
@@ -985,7 +985,7 @@ Instead of approximating the minimum value, the gradient descent algorithm even
 diverges.
     
 .. plot:: ./figures/python/learning_rate_too_large.py
-    :width: 80%
+    :width: 90%
     :align: center
 
 In the next figure, the learning rate :math:`\eta` has been chosen too small.
@@ -995,7 +995,7 @@ rate is too small, the gradient descent algorithm will converge too the nearest
 local minimum instead of the global minimum.
     
 .. plot:: ./figures/python/learning_rate_too_small.py
-    :width: 80%
+    :width: 90%
     :align: center
 
 In the special case of a linear activation :math:`\alpha(z)=z` and a quadratic
@@ -1007,7 +1007,7 @@ be the generic case.
 Here is another bad scenario where we see that the gradient descent algorithm does not converge:
 
 .. plot:: ./figures/python/learning_rate_no_convergence.py
-    :width: 80%
+    :width: 90%
     :align: center
 
 Many improvements can be made with respect to the gradient descent algorithms
@@ -1080,17 +1080,72 @@ Online learning versus batch learning
         Turn our Adaline implementation into a mini-batch learner.
 
 
-Support Vector Machines
-^^^^^^^^^^^^^^^^^^^^^^^
+Where to go from here?
+^^^^^^^^^^^^^^^^^^^^^^
 
 The step from the Perceptron to Adaline mainly brings two advantages:
 
-1. We may now use analytic optimization theory;
-2. We can encode what we mean by optimal, i.e., by the terms 'accurately' and
-   'generalizes' of the introductory discussion, by the choice of the
-   corresponding loss function.
+1. We may make use of analytic optimization theory;
+2. We may encode what we mean by 'optimal' weights :math:`w`, i.e., by the
+   terms 'accurately' and 'generalizes' of the introductory discussion, by the
+   choice of the corresponding loss function.
 
-This freedom leads to a rich class of linear classifiers. In this chapter we shall look at one of the most important examples, the so-called 'support vector machine' (SVM).
+This freedom leads to a rich class of linear classifiers, parametrized by the
+choice of activation function :math:`\alpha(z)` and the form of loss function
+:math:`L(w)`.
 
-[under construction]
+.. container:: toggle
+        
+    .. container:: header
+    
+        Homework
 
+    .. container:: homework
+
+        1. Discuss how the 'optimal' choice of weights is influence by changing
+           the loss function :eq:`eq-L` to
+
+           .. math:: 
+        
+             L(w) := \|w\|_p + \frac12 \sum_{i=1}^M \left(y^{(i)}
+             - \alpha(w\cdot x^{(i)})\right)^2,
+
+           where :math:`\|w\|_p := (\sum_i |w_i|^p)^{1/p}` is the usual
+           :math:`L^p`-norm for :math:`p\in \mathbb N\cup\{\infty\}`.
+
+        2. What properties should the loss function quite generally fulfill in
+           order to employ analytic optimization theory?
+            
+In this chapter we shall look at one of the most important example of these
+models, the so-called 'support vector machine' (SVM).
+
+Linear sperable case
+""""""""""""""""""""
+
+* While the Adaline loss function was good a measure of how accurately the
+  training data is classified, it did not put a particular emphasis on how the
+  optimal weights :math:`w` may generalize for the training data to unseen data;
+
+* Next, we shall specify such a sense and derive a corresponding loss function; 
+
+* Consider a typical linear seperable case of training data. Depending on the
+  initial weights both, the Adaline and Perceptron, may find different
+  separation hyperplanes of the same training data, however, among all of the possible seperation hyperplanes there is a special one:
+
+    .. figure:: ./figures/keynote/keynote.006.jpeg
+        :width: 90%
+        :align: center
+
+* The special seperation hyperplane maximizes the margin width of the seperation.
+
+* Note that the minimal distance of a point :math:`x` and the separation
+  hyperplane defined by :math:`w` is given by
+
+  .. math::
+
+    \operatorname{dist_w}(x) := \frac{|w\cdot x|}{\|\mathbf w\|};
+
+  recall that :math:`w=(w_0,\mathbf w)`.
+
+* Furthermore, note that the separation of the training data into the classes
+  +1 and -1 given by the signum of :math:`w\cdot x^{(i)}` is scale invariant.
