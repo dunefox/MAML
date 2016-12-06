@@ -32,7 +32,7 @@ As an example of a typical of a binary classification problem let us consider:
 * A sequence of :math:`N` data points :math:`x^{(i)}\in\mathbb R^n, 1\leq i\leq
   N`; 
 * each having :math:`n` characteristic features
-  :math:`x^{(i)}=(x^{(i)}_1,x^{(i)}_2,\ldots,x^{(i)}_3)`;
+  :math:`x^{(i)}=(x^{(i)}_1,x^{(i)}_2,\ldots,x^{(i)}_n)`;
 * and the task to assign to each element :math:`x^{(i)}` a label :math:`y^{(i)}\in\{-1,+1\}`;
 * thereby dividing the data points into two classes labeled :math:`-1` and :math:`+1`. 
             
@@ -135,7 +135,7 @@ The mathematical model can be sketched as follows:
   a threshold term, which renders :math:`w\cdot x` an *affine linear* as opposed to a 
   just *linear* map.
 * Finally signum function is employed to infer from :math:`w\cdot x\in\mathbb
-  R` discreet class labels :math:`y\in\{-1,+1\}`.
+  R` discrete class labels :math:`y\in\{-1,+1\}`.
 
 This results in a hypothesis set of function :math:`f_w`
 
@@ -413,7 +413,7 @@ terms of the following algorithm:
 
         **STEP:** 
         
-            Choose :math:`x\in'\mathbb \in A,B` at random:
+            Choose :math:`x\mathbb \in A,B` at random:
 
             * If :math:`x\in A, w^{(t)}\cdot x \geq 0`: goto **STEP**.
             * If :math:`x\in A, w^{(t)}\cdot x < 0`: goto **UPDATE**.
@@ -434,7 +434,7 @@ terms of the following algorithm:
   is run through **STEP**, a number which is often referred to as number of
   *epochs*.
 
-* Note further, that for sake of brevity , the learning rate :math:`eta` was
+* Note further, that for sake of brevity , the learning rate :math:`\eta` was
   chosen to equal :math:`1/2`.
 
 Frank Rosenblatt already showed convergence of the algorithm above in the case of finite and linearly separable training data:
@@ -476,7 +476,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
                         Homework.
 
             * Furthermore, we observe that without restriction of generality
-              (WLOG) we may assume the vectors :math:`x\in A\cap B` to be
+              (WLOG) we may assume the vectors :math:`x\in A\cup B` to be
               normalized because
               
                 .. math::
@@ -484,7 +484,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
                     \Leftrightarrow 
                     w\cdot \frac{x}{\|x\|} > 0 \,  \vee \, w\cdot \frac{x}{\|x\|} < 0.
 
-            * Let us define :math:`T=A\cap (-1)B`, i.e., :math:`T` is the union
+            * Let us define :math:`T=A\cup (-1)B`, i.e., :math:`T` is the union
               of :math:`A` and the element of :math:`B` times :math:`(-1)`.
 
             * Since :math:`A,B` absolutely linearly seperable there is a
@@ -510,11 +510,11 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
 
             Note that both cases of **UPDATE** are treated with this update since in the definition of :math:`T` we have already included the 'minus' sign.
 
-            Now in order to infer a bound on the number of update :math:`t` in the
+            Now in order to infer a bound on the number of updates :math:`t` in the
             Perceptron algorithm above, consider the quantity
 
                 .. math::
-                    1\geq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
+                    1\leq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
                     :label: eq-denum
 
             To bound this quantity also from below, we consider first:
@@ -526,7 +526,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
 
                 .. math::
                     \delta := \min\{w\cdot x \,|\, x \in T\} > 0.
-                    :math: eq-delta
+                    :label: eq-delta
 
             This facilitates the estimate
                 
@@ -559,10 +559,8 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
             :eq:`eq-denum`, give rise to the inequalities
 
                 .. math::
-                    1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} 
-                    \geq
-                    \frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
-                    :label: eq-fin-est
+                   1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} \geq\frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
+                   :label: eq-fin-est
 
             The right-hand side would grow :math:`O(\sqrt t)` but has to be smaller one. Hence, :math:`t`, i.e., the number of updates, must be bounded by a finite number.
 
@@ -756,7 +754,7 @@ Adaline
         :align: center
 
 * The first difference w.r.t. to the Perceptron is the additional activation
-  function :math:`alpha`. We shall call :math:`w\cdot x` *activation input* and
+  function :math:`\alpha`. We shall call :math:`w\cdot x` *activation input* and
   :math:`\alpha(w\cdot x)` *activation output*.
 
 * We will discuss different choices of activation functions later. For now let
@@ -769,7 +767,7 @@ Adaline
   loop for the update rule.
 
 * The advantage is that, provided :math:`\alpha:\mathbb R\to\mathbb R` is
-  regular enough, we may make use of analytic optimization theory in order to find an in some sense ;optimal' choice of weights :math:`w\in\mathbb R^{n+1}`.
+  regular enough, we may make use of analytic optimization theory in order to find an in some sense 'optimal' choice of weights :math:`w\in\mathbb R^{n+1}`.
 
 * This was not possible in the case of the Perceptron because the signum
   function is not differentiable.
@@ -802,7 +800,7 @@ Update rule
   :math:`\alpha(w\cdot x^{(i)})` given by Adaline for the current weight vector
   :math:`w`.
 
-* Note that the loss function dependents not only on :math:`w` but also on the
+* Note that the loss function depends not only on :math:`w`, but also on the
   entire training data set :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`. The
   latter, however, is assumed to be fixed which is why the dependence of
   :math:`L(w)` on it will be suppressed in out notation.
@@ -818,7 +816,7 @@ Learning and update rule
 """"""""""""""""""""""""
 
 * Having encoded the desired properties of 'optimal' weights :math:`w\in\mathbb
-  R^{n+1}` in terms a global minimum of the function :math:`L(w)`, the only
+  R^{n+1}` as a global minimum of the function :math:`L(w)`, the only
   task left to do is to find this global minimum.
 
 * Depending on the function :math:`L(w)`, i.e., on the training data, this task
