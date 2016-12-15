@@ -216,7 +216,7 @@ to be big enough for linear (or approximately) linear classification problems.
         :align: center
 
     * The colors: red and blue denote the output values 0 or 1 of the AND-gate.;
-    * Note that the data points a linearly sperable;
+    * Note that the data points a linearly seperable;
     * Note that these two classes of data points can be well separated by
       a hyperplane (in this case a line ☺). Hence, it is easy to find a  *good*
       weight vector :math:`w`. For instance:
@@ -1034,7 +1034,7 @@ Online learning versus batch learning
 
 * The learning and update rule of the Perceptron and Adaline have a crucial difference:
     
-    * The Perceptron updates its weights accoridng to inspection of a sigle
+    * The Perceptron updates its weights according to inspection of a single
       data point :math:`(x^{(i)},y^{(i)})` of the training data
       :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}` -- this is usually referred to
       as 'online' (in the sense of 'real-time') or 'stochastic' (in the sense
@@ -1117,7 +1117,7 @@ choice of activation function :math:`\alpha(z)` and the form of loss function
 In this chapter we shall look at one of the most important example of these
 models, the so-called 'support vector machine' (SVM).
 
-Linear sperable case
+Linear seperable case
 """"""""""""""""""""
 
 * While the Adaline loss function was good a measure of how accurately the
