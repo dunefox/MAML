@@ -173,10 +173,8 @@ print('Input dimension:', n_in)
 print('Output dimension:', n_out)
 
 nn = NN_Diag(n_in, interpreters.ArgMax, objectives.L2)
-
 nn.add_layer(num=50, layer=layers.FullyConnected,
              activation=activations.Sigmoid, eta=.2)
-
 nn.add_layer(num=n_out, layer=layers.FullyConnected,
              activation=activations.Sigmoid, eta=.8)
 
@@ -186,6 +184,10 @@ train_data = [(data.train_features[i].reshape(data.dim_features, 1), data.train_
 
 test_data = [(data.test_features[i].reshape(data.dim_features, 1), data.test_labels[i]) 
              for i in range(len(data.test_features))]
+
+epochs = 400
+batch_size = 30
+nn.batch_training(train_data, test_data, epochs, batch_size)
 
 fig = plots_init(nn, train_data, test_data)
 epochs = 400
