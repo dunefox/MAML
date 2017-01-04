@@ -54,7 +54,7 @@ I prepare a couple of scripts to get you started:
     and an output layer of 10 neurons representing the probabilities for the 10
     labels '0, 1, 2, ..., 9'. As loss function use `objectives.L2` and as
     activation functions `actvations.Sigmoid` with a learning rate of
-    :math:`\eta=0.3`. Choose 30 epochs with a mini-batch size of 10 for the
+    :math:`\eta=3`. Choose 30 epochs with a mini-batch size of 10 for the
     training which should result in a neural network that reaches 94-96%
     accuracy.
 
