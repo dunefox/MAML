@@ -6,7 +6,7 @@ Task
 
 Train neural network to perform classification of handwritten digits from the
 MNIST data. The MNIST data comes in two sets, the first one being the training
-data, which consists of 6000 images, and the second one being the test data,
+data, which consists of 60000 images, and the second one being the test data,
 which consist of 10000 images. The ranking will be done w.r.t. error rate on
 the test data when trained using the training data only.
 
@@ -50,7 +50,7 @@ I prepare a couple of scripts to get you started:
 
 * Then the tuning begins:
 
-  * As a first trial use: 28x28=764 input neurons, a second layer of 30 neurons,
+  * As a first trial use: 28x28=784 input neurons, a second layer of 30 neurons,
     and an output layer of 10 neurons representing the probabilities for the 10
     labels '0, 1, 2, ..., 9'. As loss function use `objectives.L2` and as
     activation functions `actvations.Sigmoid` with a learning rate of
