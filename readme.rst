@@ -10,7 +10,7 @@ Mathematics and Applications of Machine Learning
 News
 ----
 
-2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
+2016-12-28 | The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
 
 Description 
 -----------

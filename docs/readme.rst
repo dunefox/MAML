@@ -10,7 +10,9 @@ Mathematics and Applications of Machine Learning
 News
 ----
 
-2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
+* 2017-01-31: Homework questions updated.
+* 2017-01-18: Exam is schedules for 14:00 February 8, 2017, Room A 027.
+* 2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
 
 Description 
 -----------

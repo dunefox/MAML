@@ -3,8 +3,8 @@
 
 .. _FirstSteps:
 
-First steps: Linear Classifiers
-===============================
+First steps: Linear Classification
+==================================
 
 Two traditional machine learning models for linear classifications are:
 
@@ -110,7 +110,7 @@ In the following we will specify two senses which lead to the model of the
 Perceptron and Adaline.
 
 Perceptron
-^^^^^^^^^^
+----------
 
 The first model we will take a look is the so-called Perceptron model.
 It is a mathematical model inspired by a nerve cell:
@@ -744,7 +744,7 @@ Problems with the Perceptron
   classifier to unknown data.
 
 Adaline
-^^^^^^^
+-------
 
 * The Adaline algorithm will overcome some of the short-comings of the one of Perceptron.
 * The basic design is almost the same:
@@ -1114,17 +1114,21 @@ choice of activation function :math:`\alpha(z)` and the form of loss function
         2. What properties should the loss function quite generally fulfill in
            order to employ analytic optimization theory?
             
-In this chapter we shall look at one of the most important example of these
+In the next chapter we shall look at one of the most important example of such
 models, the so-called 'support vector machine' (SVM).
 
-Linear seperable case
-""""""""""""""""""""
+Support Vector Machine
+----------------------
 
 * While the Adaline loss function was good a measure of how accurately the
   training data is classified, it did not put a particular emphasis on how the
   optimal weights :math:`w` may generalize for the training data to unseen data;
 
 * Next, we shall specify such a sense and derive a corresponding loss function; 
+
+
+Linear seperable case
+"""""""""""""""""""""
 
 * Consider a typical linear seperable case of training data. Depending on the
   initial weights both, the Adaline and Perceptron, may find different
@@ -1147,3 +1151,11 @@ Linear seperable case
 
 * Furthermore, note that the separation of the training data into the classes
   +1 and -1 given by the signum of :math:`w\cdot x^{(i)}` is scale invariant.
+
+.. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+
+Soft margin case
+""""""""""""""""
+
+.. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+

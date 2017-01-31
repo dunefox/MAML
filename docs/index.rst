@@ -6,11 +6,7 @@
 Mathematics and Applications of Machine Learning
 ================================================
 
-Version: 2016-12-28
-
-News:
-
-* 2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
+Version: 2017-01-31
 
 Contents:
 
@@ -22,7 +18,11 @@ Contents:
 
     ./sec-intro.rst
     ./sec-steps.rst
+    ./sec-optimization.rst
+    ./sec-nonlin.rst
     ./sec-neural.rst
+    ./sec-approx.rst
+    ./sec-outlook.rst
     ./sec-bib.rst
 
 Possible choices of topics to proceed with:

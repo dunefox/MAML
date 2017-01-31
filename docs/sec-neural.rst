@@ -1,22 +1,24 @@
 Neural networks
 ===============
 
-Non-linear classification
--------------------------
+.. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`.
 
-Handwritten number classification
----------------------------------
-
-Data preparation
-------------------
-
-First neural network
+Multi-layer networks
 --------------------
 
-Optimizing learning strategies
-------------------------------
+Learning and update rule
+------------------------
 
-Optimizing network design
--------------------------
+Iris flower classification
+""""""""""""""""""""""""""
+
+An efficient training algorithm: Backpropagation
+------------------------------------------------
+
+Handwritten number classification
+"""""""""""""""""""""""""""""""""
+
+Learning behavior and strategies
+--------------------------------
 
 
