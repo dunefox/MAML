@@ -6,7 +6,9 @@ Representation and approximation by neural networks
 Representation of boolean functions
 -----------------------------------
 
-* Use the strategy of proof to implement the XOR gate with a two-layer network.
+.. todo:: 
+
+    * Use the strategy of proof to implement the XOR gate with a two-layer network.
 
 Representation of binary classification
 ---------------------------------------

@@ -1152,10 +1152,21 @@ Linear seperable case
 * Furthermore, note that the separation of the training data into the classes
   +1 and -1 given by the signum of :math:`w\cdot x^{(i)}` is scale invariant.
 
-.. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+.. todo:: 
+
+    Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+
+    * Distance between point and hyperplane in normal form.
+    * Scale invariance of :math:`w\cdot x=0`.
+    * Minimization problem has a unique solution.
 
 Soft margin case
 """"""""""""""""
 
-.. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+.. todo:: 
+
+    Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
+
+    * Minimization problem still has a unique solution.
+    * Meaning of slack variables.
 

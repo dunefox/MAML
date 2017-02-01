@@ -7,12 +7,15 @@ Mathematics and Applications of Machine Learning
 * **Time:** Wednesday, 14:00-16:00
 * **Location:** Lecture Hall A 027
 
-News
-----
+News & Changelog
+----------------
 
-* 2017-01-31: Homework questions updated.
+* 2017-01-31: Template structure for all missing sections with several reminders about some of the homework questions. At least until Feb 8, 2017 there will be a copy of my rough course notes available under: [`PDF <MAML%20Rough%20notes.pdf>`_]. Step by step the online notes will be completed in the near future. 
 * 2017-01-18: Exam is schedules for 14:00 February 8, 2017, Room A 027.
 * 2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
+* 2016-10-27: First source code available in Section :ref:`First steps: Linear Classifiers`.
+* 2016-10-26: Discussion session date and location updated.
+* 2016-10-19: Online.
 
 Description 
 -----------

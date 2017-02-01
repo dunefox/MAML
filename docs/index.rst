@@ -44,13 +44,6 @@ Possible choices of topics to proceed with:
 
     * Reinforcement learning
 
-Changelog
-=========
-
-* 2016-10-27: First source code available in Section :ref:`First steps: Linear Classifiers`.
-* 2016-10-26: Discussion session date and location updated.
-* 2016-10-19: Online.
-
 Indices and tables
 ==================
 
