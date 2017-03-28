@@ -10,6 +10,57 @@ Mathematics and Applications of Machine Learning
 News & Changelog
 ----------------
 
+* 2017-03-28: Exam results are available.
+
+    Statistics:
+
+        ============= === === ===
+        Average Grade Var Min Max
+        ------------- --- --- ---
+        2.1           1.2 1.0 5.0
+        ============= === === ===
+
+    Weighting:
+
+        Percent of each subtask was weighted and summed according to the
+        following table to give a weighted percent score for the exam.
+
+        === === === === ====== ====== === === === ===
+        Task 1          Task 2        Task 3          
+        =============== ============= ===============
+        Weight = .15    Weight = .15   Weight = .2     
+        --------------- ------------- ---------------  
+        a   b   c   d   a      b      a   b   c   d   
+        .5  .1  .2  .2  .5     .5     .25 .25 .25 .25  
+        === === === === ====== ====== === === === === 
+        
+        === === === === === === === === ===
+        Task 4          Task 5
+        =============== ===================
+        Weight = .25    Weight = .25   
+        --------------- -------------------
+        a   b   c   d   a   b   c   d   e    
+        .3  .2  .3  .2  .2  .2  .15 .15 .3 
+        === === === === === === === === ===
+
+        A weighted percent score of 87% and above was graded 1.0 "Sehr gut", <
+        50% was a fail, everything in between was linearly interpolated.
+
+    Physics and TMP students:
+    
+        Please collect your "Schein" from 
+        
+            Frau Heinemann, Room B 219
+            Mathematics Tower, Theresienstrasse 39.
+
+    Mathematics students:
+
+        Your results have been submitted electronically.
+
+    All:
+
+        Contact me by email for a copy of the marked exam.
+
 * 2017-01-31: Template structure for all missing sections with several reminders about some of the homework questions. At least until Feb 8, 2017 there will be a copy of my rough course notes available under: [`PDF <MAML%20Rough%20notes.pdf>`_]. Step by step the online notes will be completed in the near future. 
 * 2017-01-18: Exam is schedules for 14:00 February 8, 2017, Room A 027.
 * 2016-12-28: The handwritten number recognition challenge is open: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/Handwritten%20Numbers%20Challenge/>`_]. 
