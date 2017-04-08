@@ -35,7 +35,7 @@ data.
 
 ## Skeleton
 
-* Introduction
+1. Introduction
     * Who is the reader?
         Bridge btw. math/phys. jargon and computer science for ML.
         At least calculus/analysis I.
@@ -64,7 +64,7 @@ data.
     More in the vain of given a perspective of the book towards modern ML.
     Not pretending that we are the experts. Where we are, what we want to do.
 
-* Linear classification
+1. Linear classification
     * Perceptron
         * Learning rule
             How math. encode a mode of learning in a model.
@@ -89,7 +89,7 @@ data.
             * Hard-margin case
             * Soft-margin case
             
-* Non-liear classification
+1. Non-liear classification
     * Mapping to higher dimensional space
         * Extension of Adaline
         * Extension of SVM
@@ -98,7 +98,7 @@ data.
     arbitrary many feature dims) and only make a script that generates higher
     dim. training data.
             
-* Optimization theory
+1. Optimization theory
     * Existence of optimal solutions
     * Proof that SVMs have a unique optimal solution.
     * Convex optimization
@@ -114,28 +114,28 @@ data.
     Communicate what gradient descent is about. How constraints complicate the
     picture and what the dual formulation is.
 
-* SVM in dual form
+1. SVM in dual form
     * Kernel trick, why better performance
     * relate that back to the map to higher dims.
 
-* Neural networks
+1. Neural networks
     * Multi-layer networks
     * Learning and update rule: relate that back to Adaline
     * Iris flower classification
     * An efficient training algorithm: Backpropagation
 
-* Project: Handwritten number classification
+1. Project: Handwritten number classification
     * Implementation
     * Learning behavior and strategies
     * Preparation of Training data etc.
     
-* Representation and approximation by neural networks
+1. Representation and approximation by neural networks
     * Representation of boolean functions
     * Representation of binary classification
     * Approximation of real valued functions
 
-* Outlook
+1. Outlook
     * Deep learning
     * Recurrent networks
     
-* References
+1. References
