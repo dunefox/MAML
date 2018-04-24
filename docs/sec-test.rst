@@ -10,10 +10,11 @@ Ok, here is a formula with a label
 .. math::
     \begin{align}
         F(b) - F(a) &= \int_a^b f(x) dx
-        \label{test1}
     \end{align}
+    :label: test1
 
-And we can refer to this equation as Eq. :eq:`test`. And this is an inline formula :math:`f(x)`. It is also possible to refer to :math:`\eqref{test1}`.
+And we can refer to this equation as Eq. :eq:`test`. And this is an inline
+formula :math:`f(x)`. It is also possible to refer to :eq:`test1`.
 
 .. todo::
     We really need to repair the eqautions references.
@@ -33,7 +34,7 @@ For the plot we have used the code:
 
 Or files can be sourced:
 
-.. literalinclude:: matplot.py
+.. literalinclude:: sec-test/matplot.py
     :linenos:
 
 This is something taken from [TESTCIT2016]_

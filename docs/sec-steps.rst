@@ -9,49 +9,62 @@ First steps: Linear Classification
 Two traditional machine learning models for linear classifications are:
 
 * The *Perceptron* and
-* The *Adaptive Linear Neuron*.
+* The *Adaptive Linear Neuron (Adaline)*.
 
-The ideas for these two models go back to 
+The ideas for these two models go back to:
 
-* McCulloh & Pitts (1943) :cite:`mcculloch_logical_1943`
-* Rosenblatt (1957) :cite:`rosenblatt_perceptron_1957`
-* Widrow (1960) :cite:`widrow_adapting_1960`
+    "A logical calculus of the ideas immanent in nervous activity." 
+            
+    -- McCulloh & Pitts :cite:`mcculloch_logical_1943`, 1943
+    
+    "The perception, a perceiving and recognizing automaton." 
 
-These models provide a good entry point also for modern machine learning algorithms as:
+    -- Rosenblatt :cite:`rosenblatt_perceptron_1957`, 1957
+    
+    "A adaptive 'Adaline' neuron using chemical memistors." 
+
+    -- Widrow :cite:`widrow_adapting_1960`, 1957
+
+These models provide a good entry point also for modern machine learning
+algorithms as:
 
 * They are very simple;
-* but also generalizes to the modern *deep networks*.
+* but readily generalize to the concept of *deep networks*.
 
-This section is inspired by the introductory chapters of the book :cite:`raschka_python_2015`.
+This section is in parts inspired by the introductory chapters of the book
+*Python Machine Learning* by Sebastian Raschka :cite:`raschka_python_2015`.
 
 Binary Classification Problems
 ------------------------------
 
 As an example of a typical of a binary classification problem let us consider:
 
-* A sequence of :math:`N` data points :math:`x^{(i)}\in\mathbb R^n, 1\leq i\leq
-  N`; 
+* A sequence of :math:`N`
+* data points :math:`x^{(i)}\in\mathbb R^n, 1\leq i\leq N`; 
+
 * each having :math:`n` characteristic features
   :math:`x^{(i)}=(x^{(i)}_1,x^{(i)}_2,\ldots,x^{(i)}_n)`;
 * and the task to assign to each element :math:`x^{(i)}` a label :math:`y^{(i)}\in\{-1,+1\}`;
 * thereby dividing the data points into two classes labeled :math:`-1` and :math:`+1`. 
-            
+   
 .. figure:: ./figures/linear_classification_data.png
-    :width: 90%
+    :width: 80%
     :align: center
 
-    Labelled 2d example data points (:math:`x^{(i)}\in\mathbb R^2`) describing
-    the sepal length and width (:math:`x^{(i)}_1` and :math:`x^{(i)}_2`,
-    respectively) of species of the iris flower. The respected class labels
-    'setosa' and 'other', i.e., :math:`y^{(i)}\in\{-1,+1\}`, are encoded in the
-    colors red and blue.
+    Labelled :math:`n=2` dimensional example data points
+    (:math:`x^{(i)}\in\mathbb R^2`) describing the sepal length and sepal
+    width, i.e., :math:`x^{(i)}_1` and :math:`x^{(i)}_2`), respectively, of
+    species of the Iris flower. The class label names 'setosa' and 'other',
+    i.e., :math:`y^{(i)}=-1` and :math:`y^{(i)}=+1`, respectively, are encoded
+    in the colors red and blue.
 
-The goal of the classification problem is, given some pre-labeled training data:
+The goal of the classification problem is, given some pre-labeled training
+data:
 
 .. math::
-   (x^{(i)},y^{(i)})_{1\leq i\leq M}, \qquad M\leq N 
+   (x^{(i)},y^{(i)})_{1\leq i\leq M}, \qquad M< N 
 
-to find a function
+to make the machine find a function
 
 .. math::
     f:\mathbb R^n \to \{-1,+1\}
@@ -59,52 +72,75 @@ to find a function
 that:
 
 * predicts *accurately* the labels of pre-labeled training data
-  :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`, i.e.,  for most indices
-  :math:`i\in\{1,\ldots,M\}` it should hold :math:`f(x^{(i)})=y^{(i)}`;
-* and *generalizes* well to unknown data.
+  :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`, i.e.,  for *most* indices
+  :math:`1\leq i\leq M` it should hold :math:`f(x^{(i)})=y^{(i)}`;
+* and *generalizes* well the remaining data points :math:`x^{(i)}` for
+  :math:`M>i\leq N` or even completely unknown data.
 
 A general approach to this problem is to specify a space of candidates for
-:math:`f`, the hypothesis set. Then the art of the game is to find sensible
-mathematical counterparts for the vague terms 'accurately' and 'generalizes'
-and to find, in that sense, optimal functions :math:`f`. 
+:math:`f`, the *hypotheses set*. Then the art of the game is to find sensible
+and mathematical precise objects encoding the vague expressions 'accurately',
+'most', and 'generalizes' and to find, in that sense, an optimal functions
+:math:`f`. 
 
-* Typically one tries to find an appropriate parametrization of the hypothesis set,
-  so that the search for an optimal :math:`f` can then be recast into a search
-  for optimal parameters;
+* Typically one tries to find an adequate coordinization of the hypotheses set,
+  so that the search for an 'optimal' :math:`f` can be recast into a search
+  for finitely many 'optimal' coordinates -- one often refers to the choice of
+  coordinization and potential functions :math:`f` as the 'model' and to the
+  particular coordinate as the 'parameters of the model';
 * In which sense parameters are better or worse than others is usually encoded
-  by a real-valued function on this parameter space which depends on the training data, 
-  often called 'loss', 'regret', 'energy' or 'error' function;
+  by a non-negative function on the set of possible parameters and the entire
+  training data set, often called 'loss', 'regret', 'energy' or 'error'
+  function;
 * The search for optimal parameters is then recast into a search of minima of
   this loss function.
 
-One calls the classification problem linear if the data points of the two
-classes can be separated by a hyperplane. 
+.. container:: definition
+
+    **Definition (Classification Problem)** For :math:`n,c\in\mathbb N`, a set
+    of :math:`c` labels :math:`I`, and a sequence :math:`x^{(i)}\in\mathbb
+    R^n,y^{(i)}\in I`, :math:`1\leq i\leq M`, one calls the problem of finding
+    a function :math:`f:\mathbb R^n\to I` such that :math:`f(x^{(i)})=y^{(i)}`
+    for all :math:`1\leq i\leq N` an :math:`n`-dimensional
+    *classification problem* with :math:`c` classes. 
+
+    * The set :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}`, is called *training data* 
+      or *prelabeled data*.
+    * In case, :math:`c=2` one referes to it as *binary classiciation problem*.
+    * Furthermore, the problem is called a *linear classification problem* if the
+      given data points :math:`x^{(i)}` can be separated according to their
+      respective labels :math:`y^{(i)}` by means of hyperplanes. If this is not
+      the case, one refers to the problem as *non-linear*.
 
 The following plot shows the data points of the iris data set shown above with
 a possible hyperplane as decision boundary between the two different classes.
 
+.. _figLinBoundary:
 .. figure:: ./figures/linear_classification_decission.png
-    :width: 90%
+    :width: 80%
     :align: center
 
-    Decission boundaries for a possible classification function
-    :math:`f`. The dots denote unknown data points and the crosses denote
-    pre-labeled data points which were used to train the machine learning model
-    in order to find an optimal :math:`f`.
+    Decission boundaries for a possible classification function :math:`f`. The
+    dots denote unknown data points, e.g., :math:`x^{(i)}` for :math:`M < i
+    \leq N`, and the crosses denote pre-labeled data points, :math:`x^{(i)}`
+    for :math:`1 \leq i \leq M`, which were used to train the model in order to
+    find an optimal :math:`f`.
 
-Note that although the classification of the pre-labeled data points (the
-crosses) seems to be perfect, the classification of the unknown data (points)
-is not. This may be due to the fact that either:
+Note that in :numref:`figLinBoundary`, although the classification of the
+pre-labeled data points (the crosses) seems to be perfect, the classification
+of the unknown data (the dots) is not. This may be due to the following
+reasons:
 
-* the data is simply not separable using just a hyperplane, in which case one
-  calls the problem 'non-linear classification problem',
-* or there are errors in the pre-labeled data.
+* the data is simply not separable using just a hyperplane, i.e., it is a
+  non-linear classification problem,
+* there are errors in the pre-labeled data,
+* or the classifier function :math:`f` is not optimal yet.
 
 It is quite a typical situation that a perfect classification is not possible.
 It is therefore important to specify mathematically in which sense we allow for
 errors and what can be done to minimize them -- this will be encoded in the
-mathematical sense given to 'accurately' and 'generalizes', i.e., in terms of
-the loss function, as discussed above.
+mathematical sense given to the expressions 'accurately' and 'generalizes' that
+is usually encoded by means of choice in the loss function, as discussed above.
 
 In the following we will specify two senses which lead to the model of the
 Perceptron and Adaline.
@@ -112,39 +148,54 @@ Perceptron and Adaline.
 Perceptron
 ----------
 
-The first model we will take a look is the so-called Perceptron model.
-It is a mathematical model inspired by a nerve cell:
+The first model we will take a look at is the so-called *Perceptron Model*.
+It is a mathematical model inspired by a nerve cell depicted in
+:numref:`figNerveCell`.
 
+.. _figNerveCell:
 .. figure:: ./figures/MultipolarNeuron.png
-    :width: 90%
+    :width: 80%
     :align: center
 
     A sketch of a neuron (`source <https://commons.wikimedia.org/wiki/File:Blausen_0657_MultipolarNeuron.png>`_).
 
-The mathematical model can be sketched as follows:
+The mathematical model can be sketched as in :numref:`figMathModelSketch`.
 
+.. _figMathModelSketch:
 .. figure:: ./figures/keynote/keynote.003.jpeg
-    :width: 90%
+    :width: 80%
     :align: center
 
+    Sketch of the Perceptron Model.
+
+* Let :math:`n\in\mathbb N` be the number of input signals;
 * The input signals are given as a vector :math:`x\in\mathbb R^{n+1}`;
 * These input signals are weighted by the weight vector :math:`w\in\mathbb R^{n+1}`,
-* and then summed to give :math:`w\cdot x`.
+* and then summed by means of the inner product :math:`w\cdot x`.
 * The first coefficient in the input vector :math:`x` is always assumed to be
   one, and thus, the first coefficient in the weight vector :math:`w` is
   a threshold term, which renders :math:`w\cdot x` an *affine linear* as opposed to a 
   just *linear* map.
-* Finally signum function is employed to infer from :math:`w\cdot x\in\mathbb
+* Finally the signum function 
+
+  .. math::
+      \sigma(z) :=
+      \begin{cases}
+          +1 & \text{for } z\geq 0 \\
+          +1 & \text{for } z< 0
+      \end{cases}
+  
+  is employed to infer from :math:`w\cdot x\in\mathbb
   R` discrete class labels :math:`y\in\{-1,+1\}`.
 
-This results in a hypothesis set of function :math:`f_w`
+This results in a hypothesis set of functions :math:`f_w`
 
 .. math::
     f_w:\mathbb R^{n+1} &\to \{-1,+1\}\\
     x &\mapsto \sigma(w\cdot x)
     :label: eq-lin-model
 
-for all :math:`w\in\mathbb R^{n+1}`, where we shall often drop the subscript
+parametrized by :math:`w\in\mathbb R^{n+1}`, where we shall often drop the subscript
 :math:`w`. 
 
 Since, our hypothesis set only contains linear functions, we may only expect it
@@ -157,7 +208,7 @@ to be big enough for linear (or approximately) linear classification problems.
       :math:`\mathbb R^n` and :math:`f` was assumed to be a :math:`\mathbb
       R^n\to\{-1,+1\}` function; 
     
-    * A linear activation thus would amount to a function of the form
+    * Thus, an affine linear activation would amount to a function of the form
 
         .. math::
             f(x) = w \cdot x + b
@@ -183,12 +234,10 @@ to be big enough for linear (or approximately) linear classification problems.
         .. math::
         	\mathbb R^{n+1} \ni x &= (1, \mathbf x) \in \mathbb R\times\mathbb R^n \\
         	\mathbb R^{n+1} \ni w &= (w_0, \mathbf w) \in \mathbb R\times\mathbb R^n
-
-      and unless 
     
 **Example:**  The bitwise AND-gate
 
-    Let us pause and consider what such the simple model :eq:`eq-lin-model` is
+    Let us pause and consider what such a simple model :eq:`eq-lin-model` is
     able to describe. This is a question of whether our hypothesis set is big
     enough to contain a certain function.
 
@@ -212,13 +261,13 @@ to be big enough for linear (or approximately) linear classification problems.
       :math:`y^{i}\in\{-1,+1\}`.
 
     .. plot:: ./figures/python/and-gate.py
-        :width: 90%
+        :width: 80%
         :align: center
 
     * The colors: red and blue denote the output values 0 or 1 of the AND-gate.;
-    * Note that the data points a linearly seperable;
+    * Note that the data points a linearly separable;
     * Note that these two classes of data points can be well separated by
-      a hyperplane (in this case a line ☺). Hence, it is easy to find a  *good*
+      a hyperplane (in this case a 1d straight line). Hence, it is easy to find a  *good*
       weight vector :math:`w`. For instance:
 
     .. math::
@@ -252,7 +301,8 @@ to be big enough for linear (or approximately) linear classification problems.
 Learning rule
 """""""""""""
 
-Having settled for a hypothesis set such as :math:`f` in :eq:`eq-lin-model`,
+Having settled for a hypothesis set such as the functions :math:`f_w`, 
+:math:`w\in\mathbb R^{n+1}`, given in :eq:`eq-lin-model`,
 the task is to learn a *good* parameters, i.e., in our case a *good* weight
 vector :math:`w`, in the sense discussed in the previous section.
 
@@ -265,28 +315,32 @@ vector :math:`w`, in the sense discussed in the previous section.
 The algorithm by which the 'learning' is facilitated shall be called *learning
 rule* and can be spell out as follows:
 
-**INPUT:** Pre-labeled training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M\leq N}`
+.. container:: algorithm
 
-    **STEP 1:** Initialize the weight vector :math:`w` to zero or conveniently
-    distributed random coefficients.
+    **Algorithm: (Perceptron Learning Rule)** 
 
-    **STEP 2:** Pick a data point :math:`(x^{(i)},y^{(i)})` in the training samples at random:
+        **INPUT:** Pre-labeled training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M\leq N}`
+
+            **STEP 1:** Initialize the weight vector :math:`w` to zero or conveniently
+            distributed random coefficients.
+
+            **STEP 2:** Pick a data point :math:`(x^{(i)},y^{(i)})` in the training samples at random:
     
-        a) Compute the output
+                i) Compute the output
 
-            :math:`y = f(x^{(i)})`
+                    :math:`y = f(x^{(i)})`
 
-        b) Compare :math:`y` with :math:`y^{(i)}`:
+                ii) Compare :math:`y` with :math:`y^{(i)}`:
         
-            If :math:`y=y^{(i)}`, go back to **STEP 2**.
+                     If :math:`y=y^{(i)}`, go back to **STEP 2**.
 
-            Else, update the weight vector :math:`w` *appropriately* according to an *update rule*, 
-            and go back to **STEP 2**. 
+                     Else, update the weight vector :math:`w` *appropriately* according to an *update rule*, 
+                     and go back to **STEP 2**. 
 
 The following sketch is a visualization of the feedback loop for the learning rule:
 
 .. figure:: ./figures/keynote/keynote.004.jpeg
-    :width: 90%
+    :width: 80%
     :align: center
 
 The important step is the *update rule* which we discuss next.
@@ -306,7 +360,7 @@ Let us spell out a possible update rule and then discuss why it does what we wan
     Second, we perform an update of the weight vector as follows:
 
     .. math::
-        w \mapsto \tilde w := w + \delta w
+        w \mapsto w^{\text{new}} := w + \delta w
         :label: eq-update-weight
 
     where
@@ -332,8 +386,8 @@ Why does this update rule lead to a *good* choice of weights :math:`w`?
         * Next time when this data point is examined one finds
 
             .. math::
-                \tilde w \cdot x^{(i)} &= (w + \delta w)\cdot x^{(i)}\\
-                                       &= w \cdot x^{(i)} + \eta \, \Delta \, (x^{(i)})^2
+                w^{\text{new}} \cdot x^{(i)} &= (w + \delta w)\cdot x^{(i)}\\
+                                       &= w \cdot x^{(i)} + \eta \, \Delta \, (x^{(i)})^2 \\
                                        &\geq w \cdot x^{(i)} 
 
           because, as :math:`\Delta > 0` and the square is non-negative,
@@ -347,8 +401,8 @@ Why does this update rule lead to a *good* choice of weights :math:`w`?
         * By the same reasoning as in case 1. one finds: 
             
             .. math::
-                \tilde w \cdot x^{(i)} &= (w + \delta w)\cdot x^{(i)}\\
-                                       &= w \cdot x^{(i)} + \eta \, \Delta \, (x^{(i)})^2
+                w^{\text{new}} \cdot x^{(i)} &= (w + \delta w)\cdot x^{(i)}\\
+                                       &= w \cdot x^{(i)} + \eta \, \Delta \, (x^{(i)})^2 \\
                                        &\leq w \cdot x^{(i)} 
 
           because now we have :math:`\Delta < 0`, and again, the correction
@@ -364,29 +418,29 @@ Now that we have a heuristic understanding why the learning and update rule
 chosen for the Perceptron works, we have a look at what can be said
 mathematically; see :cite:`varga_neural_1996` for a more detailed discussion.
 
-First let us make precise what we mean by 'linear separability':
+First let us make precise what we mean by 'linear separability' in our setting:
 
 .. container:: definition
 
     **Definition: (Linear seperability)** Let :math:`A,B` be two sets in :math:`\mathbb R^n`. Then:
 
-    1. :math:`A,B` are called *linearly seperable* iff there is a
+    1. :math:`A,B` are called *linearly seperable* if there is a
     
         :math:`w\in\mathbb R^{n+1}` such that
 
             .. math:: 
-                \forall\, \mathbf a\in A,\,\mathbf b\in B: 
+                \forall\, a\in A,\, b\in B: 
                 \quad 
                 w\cdot a \geq 0 \quad \wedge 
                 \quad
                 w\cdot b < 0.
 
-    2. :math:`A,B` are called *absolutely linearly seperable* iff there is a
+    2. :math:`A,B` are called *absolutely linearly seperable* if there is a
 
         :math:`w\in\mathbb R^{n+1}` such that
 
             .. math:: 
-                \forall\, \mathbf a\in A,\,\mathbf b\in B: 
+                \forall\, a\in A,\, b\in B: 
                 \quad 
                 w\cdot a > 0 \quad \wedge 
                 \quad
@@ -397,19 +451,19 @@ terms of the following algorithm:
 
 .. container:: algorithm
 
-    **Algorithm: (Perceptron)** 
+    **Algorithm: (Perceptron Learning and Update Rule)** 
 
         **PREP:** 
         
-            Prepare the training data :math:`(\mathbf x^{(i)},y^{(i)})_{1\leq
+            Prepare the training data :math:`(x^{(i)},y^{(i)})_{1\leq
             i\leq M}`. Let :math:`A` and :math:`B` be the sets of elements
-            :math:`x^{(i)}\in\mathbb R^{n+1}=(1,\mathbb x^{(i)})` whose class labels
+            :math:`x^{(i)}\in\mathbb R^{n+1}=(1,\mathbf x^{(i)})` whose class labels
             fulfill :math:`y^{(i)}=+1` and :math:`y^{(i)}=-1`, respectively.
 
         **START:** 
         
             Initialize the weight vector :math:`w^{(0)}\in\mathbb R^{n+1}` with
-            random numbers and set :math:`t:=0`.
+            random numbers and set :math:`t\gets 0`.
 
         **STEP:** 
         
@@ -423,9 +477,9 @@ terms of the following algorithm:
         **UPDATE:** 
         
             * If :math:`x\in A`, then set :math:`w^{(t+1)}:=w^{(t)} + x`,
-              increment :math:`t\mapsto t+1`, and goto **STEP**.
+              increment :math:`t\gets t+1`, and goto **STEP**.
             * If :math:`x\in B`, then set  :math:`w^{(t+1)}:=w^{(t)} - x`,
-              increment :math:`t\mapsto t+1`, and goto **STEP**.
+              increment :math:`t\gets t+1`, and goto **STEP**.
 
 * Note that for an implementation of this algorithm we will also need an exit
   criterion so that the algorithm does not run forever. 
@@ -435,7 +489,7 @@ terms of the following algorithm:
   *epochs*.
 
 * Note further, that for sake of brevity , the learning rate :math:`\eta` was
-  chosen to equal :math:`1/2`.
+  chosen to equal :math:`1/2`; compare to :eq:`eq-delta-weight`.
 
 Frank Rosenblatt already showed convergence of the algorithm above in the case of finite and linearly separable training data:
 
@@ -484,6 +538,14 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
                     \Leftrightarrow 
                     w\cdot \frac{x}{\|x\|} > 0 \,  \vee \, w\cdot \frac{x}{\|x\|} < 0.
 
+              Note that this means that for such :math:`x`, :math:`x_0` does
+              not equal one in general, and hence, we break our convention.
+              However, the reason for this convention was to ensure that
+              :math:`x\mapsto w\cdot x` is an affine linear map with a
+              potential bias term :math:`w^0 x^0`.  As long as :math:`x^0\neq
+              0` this is the case and any necessary scaling will be encoded
+              into the choice of :math:`w^0` during training. 
+
             * Let us define :math:`T=A\cup (-1)B`, i.e., :math:`T` is the union
               of :math:`A` and the element of :math:`B` times :math:`(-1)`.
 
@@ -514,7 +576,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
             Perceptron algorithm above, consider the quantity
 
                 .. math::
-                    1\leq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
+                    1\geq \cos \varphi = \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|}.
                     :label: eq-denum
 
             To bound this quantity also from below, we consider first:
@@ -525,7 +587,7 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
             Thanks to :eq:`eq-abs-lin` and the finiteness of :math:`A,B`, we know that
 
                 .. math::
-                    \delta := \min\{w\cdot x \,|\, x \in T\} > 0.
+                    \delta := \min\{w^*\cdot x \,|\, x \in T\} > 0.
                     :label: eq-delta
 
             This facilitates the estimate
@@ -562,7 +624,9 @@ Frank Rosenblatt already showed convergence of the algorithm above in the case o
                    1 \geq \frac{w^{*}\cdot w^{(t+1)}}{\|w^{(t+1)}\|} \geq\frac{w^{*}\cdot w^{(0)} + (t+1)\delta}{\sqrt{\|w^{(0}\|^2 + (t+1)}}.
                    :label: eq-fin-est
 
-            The right-hand side would grow :math:`O(\sqrt t)` but has to be smaller one. Hence, :math:`t`, i.e., the number of updates, must be bounded by a finite number.
+            The right-hand side would grow as :math:`O(\sqrt t)` but has to be
+            smaller one. Hence, :math:`t`, i.e., the number of updates, must be
+            bounded by a finite number.
 
 .. container:: toggle
         
@@ -595,25 +659,26 @@ Next, we discuss an Python implementation of the Perceptron discussed above.
 
 * The mathematical model of the function :math:`f`, i.e., the hypothesis set,
   the learning and update rule will be implemented as a Python class::
+      
+      class Perceptron:
 
-    class Perceptron:
+          def __init__(self, num):
+              '''
+              initialize class for `num` input signals
+              '''
 
-        def __init__(self, num):
-            '''
-            initialize class for `num` input signals
-            '''
+              # weights of the perceptron, initialized to zero
+              # note the '1 + ' as the first weight entry is the threshold
+              self.w_ = np.zeros(1 + num)
 
-            # weights of the perceptron, initialized to zero
-            # note the '1 + ' as the first weight entry is the threshold
-            self.w_ = np.zeros(1 + num)
-
-            return
+              return
 
 * The constructor ``__init__`` takes as argument the number of input signals
   ``num`` and initializes the variable ``w_`` which will be used to store the
   weight vector :math:`w\in\mathbb R^{n+1}` where :math:`n=` ``num``.
 
-  The constructor is called when an object of the ``Perceptron`` class is created, e.g., by::
+  The constructor is called when an object of the ``Perceptron`` class is
+  created, e.g., by::
 
     ppn = Perceptron(2)
 
@@ -736,12 +801,25 @@ Problems with the Perceptron
 * As discussed, the convergence of the Perceptron algorithm is only guaranteed
   in the case of linearly separable test data. 
 * If linear separability is not provided, in each epoch will be at least one
-  update. 
+  update that will result in an oscillatory behavior in the chosen :math:`w`.
 * Thus, in general we need a good exit criterion for the algorithm to
   bound the maximum number of updates.
 * The updates stop the very instant the entire test data is classified correctly,
   which might lead to poor generalization properties of the resulting
   classifier to unknown data.
+
+.. container:: toggle
+        
+    .. container:: header
+    
+        Homework
+
+    .. container:: homework
+
+        Implement training scenarios for the Perceptron in which you can
+        observe the qualitative behavior described above, i.e., the possible
+        oscillations and the abrupt stop in training.
+
 
 Adaline
 -------
@@ -750,7 +828,7 @@ Adaline
 * The basic design is almost the same:
 
     .. figure:: ./figures/keynote/keynote.005.jpeg
-        :width: 90%
+        :width: 80%
         :align: center
 
 * The first difference w.r.t. to the Perceptron is the additional activation
@@ -761,7 +839,8 @@ Adaline
   us simply use: 
   
     .. math::
-        \alpha(z)=z.
+        \alpha: \mathbb R &\to \mathbb R \\
+        \alpha &\mapsto \alpha(z):=z.
 
 * The second difference is that the activation output is used as in feedback
   loop for the update rule.
@@ -781,21 +860,24 @@ Update rule
     2. and it should 'generalize' well unknown data.
 
 * In order to make use of analytic optimization theory, one may attempt to
-  encode the quality of weights w.r.t. these two properties in form of a
-  function that attains smaller and smaller values the better the weights
-  fulfill these properties.
+  encode a measure of the optimality of weights w.r.t. these two properties in
+  form of a function that attains smaller and smaller values the better the
+  weights fulfill these properties.
 
 * This function is called many names, e.g., 'loss', 'regret', 'cost', 'energy',
   or 'error' function. We will use the term 'loss function'.
 
-* Of course, depending on the classification task, there are many choice. Maybe
-  one of the simplest examples:
+* Of course, depending on the classification task, there are many choices. Maybe
+  one of the simplest examples is:
 
     .. math::
-        L(w) := \frac12 \sum_{i=1}^M \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
+        L:\mathbb R^{n+1} &\to \mathbb R^+_0 \\
+        w &\mapsto L(w) 
+        := 
+        \frac12 \sum_{i=1}^M \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
         :label: eq-L
 
-  which is the accumulated squarred euclidean distance between the particular
+  which is the accumulated squared euclidean distance between the particular
   labels of the test data :math:`y^{(i)}` and the corresponding prediction
   :math:`\alpha(w\cdot x^{(i)})` given by Adaline for the current weight vector
   :math:`w`.
@@ -811,6 +893,16 @@ Update rule
 
 * Furthermore, it does so smoothly, which allows for the use of analytic
   optimization theory.
+        
+.. container:: toggle
+        
+    .. container:: header
+    
+        Homework
+
+    .. container:: homework
+
+        What criteria should a general loss function :math:`L(w)` fulfill?
 
 Learning and update rule
 """"""""""""""""""""""""
@@ -825,20 +917,20 @@ Learning and update rule
 * Consider the following heuristics in order to infer a possible learning
   strategy:
 
-    * Say, we start with a weight vector :math:`w\in\mathbb R^{n+1}` and want to make an update
+    * Say, we start with a weight vector :math:`w\in\mathbb R^{n+1}` and want
+      to make an update
 
         .. math::
-            w\mapsto \tilde w:=w + \delta w
+            w\mapsto w^{\text{new}}:=w + \delta w
 
       in a favourable direction :math:`\delta w\in\mathbb R^{n+1}`.
 
-    * An informal Taylor expansion of :math:`L(\tilde w)` reveals
+    * An informal Taylor expansion of :math:`L(w^{\text{new}})` reveals
 
         .. math::
-            L(\tilde w) = L(w) + \frac{\partial L(w)}{\partial w} \delta w + O(\delta w^2).
+            L(w^{\text{new}}) = L(w) + \frac{\partial L(w)}{\partial w} \delta w + O(\delta w^2).
 
-    * In order to make the update 'favourable' we want that :math:`L(\tilde
-      w)\leq L(w)`.
+    * In order to make the update 'favourable' we want that :math:`L(w^{\text{new}})\leq L(w)`.
 
     * Neglecting the higher orders, this would mean:
 
@@ -853,11 +945,18 @@ Learning and update rule
             \delta w := - \eta \frac{\partial L(w)}{\partial w} 
             :label: eq-L-deltaw
 
-      for some learning rate :math:`\eta\in\mathbb R^+`.
+      for some learning rate :math:`\eta\in\mathbb R^+`. 
+      
+    * Then, for the choice :eq:`eq-L-deltaw` the linear order
+      :eq:`eq-L-diff` becomes negative and we note that
 
-    * Note that for the choice :eq:`eq-L-deltaw` the linear order
-      :eq:`eq-L-diff` becomes negative and therefore works to decrease the value
-      of :math:`L(w)`.
+        .. math::
+            L(w^{\text{new}}) 
+            = 
+            L(w) - \eta \left(\frac{\partial L(w)}{\partial w}\right)^2 + O(\delta w^2).
+
+      Hence, the update may work to decrease the value of :math:`L(w)` – at
+      least in the linear order of perturbation.
 
 Concretely, for our case we find:
 
@@ -868,27 +967,33 @@ Concretely, for our case we find:
         \left(
             y^{(i)}-\alpha(w\cdot x^{(i)})
         \right)
-        \alpha'(w\cdot x^{(i)}) x^{(i)}.
+        \alpha'(w\cdot x^{(i)}) x^{(i)},
+
+where :math:`\alpha'` denotes the derivative of :math:`\alpha`.
 
 Hence, we may formulate the Adaline algorithm as follows:
 
-**INPUT:** Pre-labeled training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M\leq N}`
+.. container:: algorithm
 
-    **STEP 1:** Initialize the weight vector :math:`w` to zero or conveniently
-    distributed random coefficients.
+    **Algorithm: (Adaline Learning and Update Rule)** 
 
-    **STEP 2:** For a certain number of epochs:
+        **INPUT:** Pre-labeled training data :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M\leq N}`
+
+            **STEP 1:** Initialize the weight vector :math:`w` to zero or conveniently
+            distributed random coefficients.
+
+            **STEP 2:** For a certain number of epochs:
     
-        a) Compute :math:`L(w)`
+                i) Compute :math:`L(w)`
 
-        b) Update the weights :math:`w` according to
+                ii) Update the weights :math:`w` according to
 
-            .. math::
-                w \mapsto \tilde w := w + \eta \sum_{i=1}^M 
-                \left(
-                    y^{(i)}-\alpha(w\cdot x^{(i)})
-                \right)
-                \alpha'(w\cdot x^{(i)}) x^{(i)} 
+                     .. math::
+                         w \mapsto w^{\text{new}} := w + \eta \sum_{i=1}^M 
+                         \left(
+                             y^{(i)}-\alpha(w\cdot x^{(i)})
+                         \right)
+                         \alpha'(w\cdot x^{(i)}) x^{(i)} 
     
 .. container:: toggle
 
@@ -913,7 +1018,10 @@ Python implementation
 """""""""""""""""""""
 
 As we have already noted, the Adaline learning rule is the same as the one of
-the Perceptron. Hence, we only need to change the learning rule implemented in the method ``learn`` of the ``Perceptron`` class. The ``Adaline`` class can therefore we created as follows::
+the Perceptron. Hence, for linear activation :math:`\alpha(z)=z`, we only need
+to change the learning rule implemented in the method ``learn`` of the
+``Perceptron`` class. The ``Adaline`` class can therefore we created as
+follows::
 
     class Adaline(Perceptron):
 
@@ -929,20 +1037,20 @@ the Perceptron. Hence, we only need to change the learning rule implemented in t
 
             # for all the epoch
             for _ in range(epochs):
-                # classify the traning features
+                # classify the training features
                 Z = self.classify(X_train)
-                # count the misqualifications for the logging
+                # count the misclassifications for the logging
                 err = 0
                 for z, y in zip(Z, Y_train):
                     err += int(z != y)
                 # ans save them in the list for later use
                 self.train_errors_.append(err)
                 
-                # compute the activation input of the entire traning features
+                # compute the activation input of the entire training features
                 output = self.activation_input(X_train)
                 # and then the deviation from the labels
                 delta = Y_train - output
-                # the following is an implmentation of the adaline update rule
+                # the following is an implementation of the Adaline update rule
                 self.w_[1:] += eta * X_train.T.dot(delta)
                 self.w_[0] += eta * delta.sum()
                 # and finally, we record the loss function
@@ -967,6 +1075,27 @@ the Perceptron. Hence, we only need to change the learning rule implemented in t
 * The last two lines in this ``for`` loop compute the loss value for this epoch
   and store it in the list ``train_loss_``.
 
+.. container:: toggle
+            
+    .. container:: header
+        
+        Homework
+
+    .. container:: homework
+
+        With class labels being either -1 or +1 one may think that it makes
+        sense to use an activation function that makes :math:`\alpha(w\cdot x)`
+        of the same order of magnitude of the labels itself. A typical example
+        for such an activation is
+
+        .. math::
+            \alpha(z) = tanh(z).
+
+        Discuss the advantages and disadvantages of such a choice compared to
+        the linear activation. Implement the Adaline with this or other
+        activations and study the learning behavior.
+
+
 Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
 
 The learning rate parameter and preparation of training data
@@ -976,14 +1105,14 @@ The learning rate parameter and preparation of training data
 * Not even in the linear separable case, we may expect convergence of the Adaline algorithm;
 * We can only expect to find a good approximation of the optimal choice of
   weights :math:`w\in\mathbb R^{n+1}`;
-* But this will depend on the choice of the learning rate parameter.
+* But the approximation will depend on the choice of the learning rate parameter.
 
 In the figure below, the learning rate :math:`\eta` was chosen too large.
 Instead of approximating the minimum value, the gradient descent algorithm even
 diverges.
     
 .. plot:: ./figures/python/learning_rate_too_large.py
-    :width: 90%
+    :width: 80%
     :align: center
 
 In the next figure, the learning rate :math:`\eta` has been chosen too small.
@@ -993,41 +1122,110 @@ rate is too small, the gradient descent algorithm will converge too the nearest
 local minimum instead of the global minimum.
     
 .. plot:: ./figures/python/learning_rate_too_small.py
-    :width: 90%
+    :width: 80%
     :align: center
 
 In the special case of a linear activation :math:`\alpha(z)=z` and a quadratic
 loss function such as :eq:`eq-L`, which we also used in our Python
-implementation, such a behavior cannot occur due to convexity. In more general
-settings that we will discuss later, a multitude of local minima can, however,
-be the generic case.
+implementation, such a behavior cannot occur due to convexity. For more general
+activations :math:`\alpha(z)` and loss fuctions :math:`L(w)` that we will
+discuss later there are often non-trivial landscape of local minima.
 
-Here is another bad scenario where we see that the gradient descent algorithm does not converge:
+.. container:: toggle
+            
+    .. container:: header
+        
+        Homework
+
+    .. container:: homework
+
+        Prove that for a quadratic loss function as given in :eq:`eq-L` and the
+        choice of a linear activation :math:`\alpha(z)=z`, the corresponding
+        loss function is convex independently of the training data. What does
+        that mean for the Adaline update rule?
+
+Here is another bad scenario where we see that the gradient descent algorithm
+does not converge:
 
 .. plot:: ./figures/python/learning_rate_no_convergence.py
-    :width: 90%
+    :width: 80%
     :align: center
 
 Many improvements can be made with respect to the gradient descent algorithms
-which tend to work well in different situations. Here is a nice overview on
-popular optimization algorithms used in machine learning: `[URL] <http://sebastianruder.com/optimizing-gradient-descent/>`_
-
-In general, the learning rate :math:`\eta` will depend very much on the fluctuations in the features of your training data set. In order, to have comparable results it is therefore a good idea to normalize the training data. A standard procedure to do this is to transform the training data according to the following map
+which tend to work well in different situations. A behavior such as in the
+scenario above can be tempered by adapting the learning rate. For instance, by
+choosing:
 
 .. math::
-    x^{(i)} \mapsto \widetilde x^{(i)} := \frac{x^{(i)} - \mu}{\sigma},
+    \eta = \frac{c_1}{c_2+t},
+
+where :math:`c_1,c_2\in\mathbb R^+` are two constants and :math:`t` is the
+number of updates. 
+
+
+Here is a nice overview on
+popular optimization algorithms used in machine learning: 
+`[An overview of gradient descent optimization algorithms] <http://sebastianruder.com/optimizing-gradient-descent/>`_ by Sebastian Ruder.
+
+Learning rate, loss functions, and stadardization of training data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As can be seen from :eq:`eq-L-deltaw`, the learning rate :math:`\eta` controls
+the magnitude of the update of the weight vector. The scale on which the
+learning rate controls the update is given by the factor :math:`\frac{\partial
+L(w)}{\partial w}` which by definition of :math:`L(w)` in :eq:`eq-L` is given
+in terms of a sum of :math:`N` summands. Hence, if the size of the training set
+varies the respective scales of the learning rate will in general not be
+comparable. To reduce the dependence of the learning rate scale on the size of
+the training data, it a good idea to replace :math:`L(w)` by the average:
+
+.. math::
+    L:\mathbb R^{n+1} &\to \mathbb R^+_0 \\
+    w &\mapsto L(w) 
+    := 
+    \frac{1}{2M} \sum_{i=1}^M \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
+
+Furthermore, the learning rate will depend on the fluctuations in the features
+of your training data set. In order, to have comparable results it is therefore
+a good idea to normalize the training data.  A standard procedure to do this is
+to transform the training data according to the following map
+
+.. math::
+    x^{(i)} \mapsto \widetilde x^{(i)} := \frac{x^{(i)} - \overline{x}_M}{\sigma},
 
 where 
 
 .. math::
-    \mu:=\frac1M\sum_{i=1}^M x^{(i)}
+    \overline{x}_M:=\frac1M\sum_{i=1}^M x^{(i)}
     
 is the empirical average and
 
 .. math::
-    \sigma:=\sqrt{\frac1M\sum_{i=1}^M (x^{(i)} - \mu)}
+    \sigma:=\sqrt{\frac1M\sum_{i=1}^M (x^{(i)} - \overline{x}_M)}
+    :label: eq-sigma
 
-is the standard variation.
+is the standard variation. This procedure is called *standardization* of the
+training data.
+
+.. container:: toggle
+            
+    .. container:: header
+        
+        Homework
+
+    .. container:: homework
+
+        A little side remark from statistics: For small samples :eq:`eq-sigma`
+        underestimates the standard deviation on avarage. A better estimate is
+        therefore:
+
+        .. math::
+            s_M:=\sqrt{\frac{1}{M-1}\sum_{i=1}^M (x^{(i)} - \overline x_M)}
+
+        Prove that for independent identically distributed random variables we
+        get :math:`E(s_M^2)=\sigma^2` thanks to the pecuiliar factor
+        :math:`(M-1)^{-1}`.  However, in general our training samples will be
+        large enough that this goes unnoticed.
 
 Online learning versus batch learning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1043,13 +1241,25 @@ Online learning versus batch learning
     * The Adaline conducts an update after inspecting the whole training data
       :math:`(x^{(i)},y^{(i)})_{1\leq i\leq M}` by means of computing the
       gradient of the loss function :eq:`eq-L` that depends on the entire set
-      of training data -- this is usually referred to as 'batch' learning (in the sense that the whole batch of training data is used to compute an update of the weights).
+      of training data -- this is usually referred to as 'batch' learning (in
+      the sense that the whole batch of training data is used to compute an
+      update of the weights).
 
-* While online learning has a strong dependence on the sequence of training
-  data points presented to the learner, batch learning can become
-  computationally very expensive.
+* While online learning may have a strong dependence on the sequence of training
+  data points presented to the learner and produces updates that may be extreme
+  for extreme outliers, batch learning averages out the updates but therefore
+  is usually computationally very expensive.
 
-* A compromise between them two extremes is the so-called 'mini-batch'
+* Clearly, we can also make Adaline become an online learner by receptively
+  presenting it training data consisting only of one randomly chosen point. This
+  method is called *stochastic gradient descent*.
+
+* In turn, we can make the Perceptron become a batch learner, simply by
+  computing all the update per element in the entire training data set,
+  computing the average update, and then performing a single update with the
+  average.
+
+* A compromise between the two extremes, online and batch learning, is the so-called 'mini-batch'
   learning. 
   
     * The entire batch of training data :math:`I=(x^{(i)},y^{(i)})_{1\leq i\leq
@@ -1062,10 +1272,10 @@ Online learning versus batch learning
         .. math::
             L(w) := \frac12 \sum_{i=i_{k-1}}^{i_k-1} \left(y^{(i)} - \alpha(w\cdot x^{(i)})\right)^2,
 
-      and the update of the weight vector :math:`w` is performed acordingly.
+      and the update of the weight vector :math:`w` is performed accordingly.
 
 * For appropriate chosen mini-batch sizes this mini-batch learning rule often
-  proves to faster than online or batch learning.
+  proves to be faster than online or batch learning.
     
 .. container:: toggle
         
@@ -1075,7 +1285,9 @@ Online learning versus batch learning
 
     .. container:: homework
 
-        Turn our Adaline implementation into a mini-batch learner.
+        Implement the Pereceptron and Adaline as online, batch, and mini-batch
+        learners and study resepctive learning success for the same set of training
+        data.
 
 
 Where to go from here?
@@ -1104,15 +1316,16 @@ choice of activation function :math:`\alpha(z)` and the form of loss function
            the loss function :eq:`eq-L` to
 
            .. math:: 
-        
-             L(w) := \|w\|_p + \frac12 \sum_{i=1}^M \left(y^{(i)}
-             - \alpha(w\cdot x^{(i)})\right)^2,
+       
+               L(w) := \|w\|_p + \frac12 \sum_{i=1}^M \left(y^{(i)}
+               -\alpha(w\cdot x^{(i)})\right)^2,
 
            where :math:`\|w\|_p := (\sum_i |w_i|^p)^{1/p}` is the usual
            :math:`L^p`-norm for :math:`p\in \mathbb N\cup\{\infty\}`.
+        2. Give an example of a loss function employing a notion of
+           distance other than the Euclidean one and implement the
+           corresponding Adaline.
 
-        2. What properties should the loss function quite generally fulfill in
-           order to employ analytic optimization theory?
             
 In the next chapter we shall look at one of the most important example of such
 models, the so-called 'support vector machine' (SVM).
@@ -1135,7 +1348,7 @@ Linear seperable case
   separation hyperplanes of the same training data, however, among all of the possible seperation hyperplanes there is a special one:
 
     .. figure:: ./figures/keynote/keynote.006.jpeg
-        :width: 90%
+        :width: 80%
         :align: center
 
 * The special seperation hyperplane maximizes the margin width of the seperation.

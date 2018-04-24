@@ -40,8 +40,8 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    # 'sphinx.ext.imgmath',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.imgmath',
+    # 'sphinx.ext.mathjax',
     'sphinx.ext.graphviz',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
@@ -69,7 +69,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'MAML'
+project = 'Mathematics and Applications of Machine Learning'
 copyright = u'2016, Dirk - André Deckert'
 author = u'Dirk - André Deckert'
 
@@ -139,7 +139,14 @@ todo_include_todos = 1
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
+html_theme_options = {
+    'body_text_align': 'justify',
+    'sidebar_width': '250px',
+    'page_width': '1200px',
+    'fixed_sidebar': True,
+    'sidebar_collapse': True,
+}
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -153,11 +160,11 @@ html_theme = 'sphinx_rtd_theme'
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = 'MAML v0.1.1'
+html_title = 'Mathematics and Applications of Machine Learning'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
-# html_short_title = None
+html_short_title = 'MAML'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -444,3 +451,12 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+# -- imgmath extension ---------------------------------------------
+
+numfig = True
+
+# math_number_all = True
+# math_numfig = True
+imgmath_font_size = 15
+imgmath_image_format = 'svg'

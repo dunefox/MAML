@@ -1,8 +1,11 @@
-# Roadmap: MAML Lecture Notes
+Roadmap: MAML Lecture Notes
+===========================
 
-## Organizational Points
+Organizational Points
+---------------------
 
-### Basic Principles:
+Basic Principles:
+^^^^^^^^^^^^^^^^^
 
 1. Small chapters: Ideally 1 point per chapter;
 1. Clear distinction between informal and formal parts;
@@ -10,14 +13,16 @@
 1. Graph or map of the book chapter and sections;
 1. Guest authors from the community.
 
-### Open questions
+Open questions
+^^^^^^^^^^^^^^
 
 * Which data sets can we use for as training data? 
 * We need to distinguish between linear separable and linear non-separable
 data.
 * Which are good and accessible source for the universal approximation theorems?
 
-### Cherry picking in the existing literature
+Cherry picking in the existing literature
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Good reference for the Python level that we should assume: 
 
@@ -33,7 +38,8 @@ data.
 
 * "Mathematical Foundations of Machine Learning"
 
-## Skeleton
+Skeleton
+--------
 
 1. Introduction
     * Who is the reader?
@@ -139,3 +145,24 @@ data.
     * Recurrent networks
     
 1. References
+
+
+Possible choices of topics to proceed with
+------------------------------------------
+
+    * Introduction into the mathematics of neural networks
+
+        * Universal approximation theorem
+        * Complexity analysis
+
+    * Benchmark: support vector machines
+
+        * Linear classification
+        * Non-linear classification
+
+    * Recurrent neural networks
+
+        * Learning addition with carry
+        * Pattern recognition in texts
+
+    * Reinforcement learning

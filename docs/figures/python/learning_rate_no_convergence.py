@@ -5,7 +5,7 @@ wc = 70
 eta = .16
 
 def L(w):
-    return 0.001*w**4 - 5*(w-5)**2
+    return 0.001*w**4 - 5*(w-5)**2 + 10000
 
 def dw_L(w):
     return 4*0.001*w**3 - 2*5*(w-5)

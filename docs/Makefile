@@ -21,12 +21,12 @@ html:
 
 .PHONY: run
 run:
-	open $(BUILDDIR)/html/index.html
+	open -a "Google Chrome" $(BUILDDIR)/html/index.html
 
 .PHONY: pub
 pub: $(MAIN)
 	chmod -R 755 $(BUILDDIR)/html/.
-	rsync -e ssh -vramlHP --numeric-ids --delete --delete-excluded --delete-after --delay-updates $(BUILDDIR)/html/. deckert@math12.mathematik.uni-muenchen.de:~/wwwpublic/light-and-matter/teaching/WS1617/.
+	rsync -e ssh -vramlHP --numeric-ids --delete --delete-excluded --delete-after --delay-updates $(BUILDDIR)/html/. deckert@math12.mathematik.uni-muenchen.de:~/wwwpublic/light-and-matter/teaching/SS18/.
 
 .PHONY: help
 help:

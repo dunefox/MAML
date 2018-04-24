@@ -6,47 +6,30 @@
 Mathematics and Applications of Machine Learning
 ================================================
 
-Version: 2017-01-31
+.. role:: underline
+    :class: underline
+            
+Version: 2018-04-09
 
 Contents:
 
 .. toctree::
-    :maxdepth: 3
-    :numbered:
+    :maxdepth: 2
+    
+    readme.rst
 
-    ./readme.rst
-
-    ./sec-intro.rst
-    ./sec-steps.rst
-    ./sec-optimization.rst
-    ./sec-nonlin.rst
-    ./sec-neural.rst
-    ./sec-approx.rst
-    ./sec-outlook.rst
-    ./sec-bib.rst
-
-Possible choices of topics to proceed with:
-
-    * Introduction into the mathematics of neural networks
-
-        * Universal approximation theorem
-        * Complexity analysis
-
-    * Benchmark: support vector machines
-
-        * Linear classification
-        * Non-linear classification
-
-    * Recurrent neural networks
-
-        * Learning addition with carry
-        * Pattern recognition in texts
-
-    * Reinforcement learning
+    sec-intro.rst
+    sec-steps.rst
+    sec-optimization.rst
+    sec-nonlin.rst
+    sec-neural.rst
+    sec-approx.rst
+    sec-outlook.rst
+    sec-bib.rst
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
+

@@ -1,5 +1,8 @@
+.underline {
+    text-decoration: underline;
+}
+
 img.math {
-    float: left;
     vertical-align: middle;
 }
 
@@ -11,82 +14,52 @@ span.eqno {
     float: right;
 }
 
-.toggle .header {
+.toggle {
     display: inline-block;
+    border: 1px solid #777;
+    background-color: #ECECEC;
+    border-radius: .5em;
+    font-size: 1em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+    
+.toggle .header {
+    padding: .5em;
     font-weight: bold;
-    font-size: 10pt;
-    border: 1pt solid #777;
-    background-color: #DBEDFF;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
 }
 
 .homework {
-    display: block;
+    display: none;
     background-color: #DBEDFF;
-    border: 1pt solid #777;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    padding: 1em;
+    border-radius: 0 0 .5em .5em;
 }
 
 .definition {
     display: block;
     background-color: #FFE9C3;
-    border: 1pt solid #777;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    padding: 1em;
+    border-radius: .5em;
 }
 
 .theorem {
     display: block;
     background-color: #C9FFB6;
-    border: 1pt solid #777;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    padding: 1em;
+    border-radius: .5em;
 }
 
 .algorithm {
     display: block;
     background-color: #FFB3AE;
-    border: 1pt solid #777;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    padding: 1em;
+    border-radius: .5em;
 }
 
 .proof {
-    display: block;
-    background-color: #FFF2DB;
-    border: 1pt solid #777;
-    border-radius: 5px;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    display: none;
+    background-color: #DBEDFF;
+    padding: 1em;
+    border-radius: 0 0 .5em .5em;
 }

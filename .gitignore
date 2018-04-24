@@ -1,8 +1,9 @@
 __pycache__/
 .ipynb_checkpoints/
 _build/
-backup/
-papers/
+data/
+sec-test/
+sec-test.rst
 
 *.DS_Store
 *.pyc
