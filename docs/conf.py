@@ -45,7 +45,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    #'sphinx.ext.githubpages',
+    'sphinx.ext.githubpages',
     'matplotlib.sphinxext.plot_directive',
     'sphinx_paramlinks',
     'sphinxcontrib.bibtex',
