@@ -9,7 +9,7 @@ Mathematics and Applications of Machine Learning
 .. role:: underline
     :class: underline
             
-Version: 2018-04-09
+Version: 2018-05-06
 
 Contents:
 
@@ -20,11 +20,7 @@ Contents:
 
     sec-intro.rst
     sec-steps.rst
-    sec-optimization.rst
-    sec-nonlin.rst
-    sec-neural.rst
-    sec-approx.rst
-    sec-outlook.rst
+    sec-wheretogo.rst
     sec-bib.rst
 
 Indices and tables

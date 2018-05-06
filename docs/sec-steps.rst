@@ -3,6 +3,7 @@
 
 .. _FirstSteps:
 
+
 First steps: Linear Classification
 ==================================
 
@@ -33,6 +34,7 @@ algorithms as:
 
 This section is in parts inspired by the introductory chapters of the book
 *Python Machine Learning* by Sebastian Raschka :cite:`raschka_python_2015`.
+
 
 Binary Classification Problems
 ------------------------------
@@ -144,6 +146,7 @@ is usually encoded by means of choice in the loss function, as discussed above.
 
 In the following we will specify two senses which lead to the model of the
 Perceptron and Adaline.
+
 
 Perceptron
 ----------
@@ -298,8 +301,9 @@ to be big enough for linear (or approximately) linear classification problems.
                by the model :eq:`eq-lin-model` and which not -- in the latter case, discuss
                why not.
 
+
 Learning rule
-"""""""""""""
+~~~~~~~~~~~~~
 
 Having settled for a hypothesis set such as the functions :math:`f_w`, 
 :math:`w\in\mathbb R^{n+1}`, given in :eq:`eq-lin-model`,
@@ -345,8 +349,9 @@ The following sketch is a visualization of the feedback loop for the learning ru
 
 The important step is the *update rule* which we discuss next.
 
+
 Update rule
-"""""""""""
+~~~~~~~~~~~
 
 Let us spell out a possible update rule and then discuss why it does what we want:
 
@@ -411,8 +416,9 @@ Why does this update rule lead to a *good* choice of weights :math:`w`?
 The model :eq:`eq-lin-model` for :math:`f`, i.e., hypothesis set, and this
 particular learning and update rule is what defines the 'Perceptron'.
 
+
 Convergence
-"""""""""""
+~~~~~~~~~~~
 
 Now that we have a heuristic understanding why the learning and update rule
 chosen for the Perceptron works, we have a look at what can be said
@@ -652,8 +658,9 @@ rather academic.
 * The convergence theorem only holds in the case of linear separability of the
   test data, which in most interesting cases is not given.
 
+
 Python implementation 
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 Next, we discuss an Python implementation of the Perceptron discussed above.
 
@@ -768,7 +775,7 @@ initializes and trained as follows::
     ppn = Perceptron(X.shape[1])
     ppn.learn(X_train, Y_train, eta=0.1, epochs=100)
 
-Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron.ipynb/>`_] 
+Find the full implementation here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/001_iris_perceptron.ipynb>`_] 
 
 .. container:: toggle
         
@@ -795,8 +802,11 @@ Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/
         the training data is presented to the Perceptron. How could the
         dependency be suppressed?
 
+        Find an implementation showing different learning behaviors here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/002_iris_perceptron_convergence.ipynb>`_] 
+
+
 Problems with the Perceptron
-""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * As discussed, the convergence of the Perceptron algorithm is only guaranteed
   in the case of linearly separable test data. 
@@ -841,6 +851,7 @@ Adaline
     .. math::
         \alpha: \mathbb R &\to \mathbb R \\
         \alpha &\mapsto \alpha(z):=z.
+        :label: eq-alpha-z
 
 * The second difference is that the activation output is used as in feedback
   loop for the update rule.
@@ -851,8 +862,9 @@ Adaline
 * This was not possible in the case of the Perceptron because the signum
   function is not differentiable.
 
+
 Update rule
-"""""""""""
+~~~~~~~~~~~
 
 * Recall that an 'optimal' choice of weights :math:`w\in\mathbb R^{n+1}` should fulfill two properties:
 
@@ -904,8 +916,9 @@ Update rule
 
         What criteria should a general loss function :math:`L(w)` fulfill?
 
+
 Learning and update rule
-""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Having encoded the desired properties of 'optimal' weights :math:`w\in\mathbb
   R^{n+1}` as a global minimum of the function :math:`L(w)`, the only
@@ -953,7 +966,7 @@ Learning and update rule
         .. math::
             L(w^{\text{new}}) 
             = 
-            L(w) - \eta \left(\frac{\partial L(w)}{\partial w}\right)^2 + O(\delta w^2).
+            L(w) - \eta \left(\frac{\partial L(w)}{\partial w}\right)^2 + O_{\delta w\to 0}(\delta w^2).
 
       Hence, the update may work to decrease the value of :math:`L(w)` – at
       least in the linear order of perturbation.
@@ -967,11 +980,20 @@ Concretely, for our case we find:
         \left(
             y^{(i)}-\alpha(w\cdot x^{(i)})
         \right)
-        \alpha'(w\cdot x^{(i)}) x^{(i)},
+        \alpha'(w\cdot x^{(i)}) \, x^{(i)},
+        :label: eq-dL-dw
 
-where :math:`\alpha'` denotes the derivative of :math:`\alpha`.
+where :math:`\alpha'` denotes the derivative of :math:`\alpha`. Here the
+notation :math:`\partial/\partial w` denotes the gradient
 
-Hence, we may formulate the Adaline algorithm as follows:
+.. math::
+    \frac{\partial}{\partial w} =
+    \left(\frac{\partial}{\partial w_j}\right)_{0\leq j\leq n}
+
+and :eq:`eq-dL-dw` makes sense as :math:`x^{(i)}` on the right-hand side is a
+vector in :math:`\in\mathbb R^{n+1}`.
+
+In conclusion, we may formulate the Adaline algorithm as follows:
 
 .. container:: algorithm
 
@@ -994,6 +1016,7 @@ Hence, we may formulate the Adaline algorithm as follows:
                              y^{(i)}-\alpha(w\cdot x^{(i)})
                          \right)
                          \alpha'(w\cdot x^{(i)}) x^{(i)} 
+                         :label: eq-adaline-update
     
 .. container:: toggle
 
@@ -1013,9 +1036,10 @@ Hence, we may formulate the Adaline algorithm as follows:
         3. Discuss the advantages/disadvantages of immediate weight updates
            after misclassification as it was the case for the
            Perceptron and batch updates as it is the case for Adaline.
+
                    
 Python implementation 
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 As we have already noted, the Adaline learning rule is the same as the one of
 the Perceptron. Hence, for linear activation :math:`\alpha(z)=z`, we only need
@@ -1075,31 +1099,12 @@ follows::
 * The last two lines in this ``for`` loop compute the loss value for this epoch
   and store it in the list ``train_loss_``.
 
-.. container:: toggle
-            
-    .. container:: header
-        
-        Homework
 
-    .. container:: homework
-
-        With class labels being either -1 or +1 one may think that it makes
-        sense to use an activation function that makes :math:`\alpha(w\cdot x)`
-        of the same order of magnitude of the labels itself. A typical example
-        for such an activation is
-
-        .. math::
-            \alpha(z) = tanh(z).
-
-        Discuss the advantages and disadvantages of such a choice compared to
-        the linear activation. Implement the Adaline with this or other
-        activations and study the learning behavior.
+Find the full implementation here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/004_iris_adaline.ipynb>`_] 
 
 
-Find the full implementation here: [`Link <https://gitlab.com/deckert/MAML/blob/master/src/First%20steps/iris_perceptron_and_adaline.ipynb>`_] 
-
-The learning rate parameter and preparation of training data
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Learning behavior
+~~~~~~~~~~~~~~~~~
 
 * We have introduced the learning rate :math:`\eta` in an ad-hoc fashion;
 * Not even in the linear separable case, we may expect convergence of the Adaline algorithm;
@@ -1167,8 +1172,9 @@ Here is a nice overview on
 popular optimization algorithms used in machine learning: 
 `[An overview of gradient descent optimization algorithms] <http://sebastianruder.com/optimizing-gradient-descent/>`_ by Sebastian Ruder.
 
-Learning rate, loss functions, and stadardization of training data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Stadardization of training data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As can be seen from :eq:`eq-L-deltaw`, the learning rate :math:`\eta` controls
 the magnitude of the update of the weight vector. The scale on which the
@@ -1227,8 +1233,9 @@ training data.
         :math:`(M-1)^{-1}`.  However, in general our training samples will be
         large enough that this goes unnoticed.
 
+
 Online learning versus batch learning
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The learning and update rule of the Perceptron and Adaline have a crucial difference:
     
@@ -1288,98 +1295,3 @@ Online learning versus batch learning
         Implement the Pereceptron and Adaline as online, batch, and mini-batch
         learners and study resepctive learning success for the same set of training
         data.
-
-
-Where to go from here?
-^^^^^^^^^^^^^^^^^^^^^^
-
-The step from the Perceptron to Adaline mainly brings two advantages:
-
-1. We may make use of analytic optimization theory;
-2. We may encode what we mean by 'optimal' weights :math:`w`, i.e., by the
-   terms 'accurately' and 'generalizes' of the introductory discussion, by the
-   choice of the corresponding loss function.
-
-This freedom leads to a rich class of linear classifiers, parametrized by the
-choice of activation function :math:`\alpha(z)` and the form of loss function
-:math:`L(w)`.
-
-.. container:: toggle
-        
-    .. container:: header
-    
-        Homework
-
-    .. container:: homework
-
-        1. Discuss how the 'optimal' choice of weights is influence by changing
-           the loss function :eq:`eq-L` to
-
-           .. math:: 
-       
-               L(w) := \|w\|_p + \frac12 \sum_{i=1}^M \left(y^{(i)}
-               -\alpha(w\cdot x^{(i)})\right)^2,
-
-           where :math:`\|w\|_p := (\sum_i |w_i|^p)^{1/p}` is the usual
-           :math:`L^p`-norm for :math:`p\in \mathbb N\cup\{\infty\}`.
-        2. Give an example of a loss function employing a notion of
-           distance other than the Euclidean one and implement the
-           corresponding Adaline.
-
-            
-In the next chapter we shall look at one of the most important example of such
-models, the so-called 'support vector machine' (SVM).
-
-Support Vector Machine
-----------------------
-
-* While the Adaline loss function was good a measure of how accurately the
-  training data is classified, it did not put a particular emphasis on how the
-  optimal weights :math:`w` may generalize for the training data to unseen data;
-
-* Next, we shall specify such a sense and derive a corresponding loss function; 
-
-
-Linear seperable case
-"""""""""""""""""""""
-
-* Consider a typical linear seperable case of training data. Depending on the
-  initial weights both, the Adaline and Perceptron, may find different
-  separation hyperplanes of the same training data, however, among all of the possible seperation hyperplanes there is a special one:
-
-    .. figure:: ./figures/keynote/keynote.006.jpeg
-        :width: 80%
-        :align: center
-
-* The special seperation hyperplane maximizes the margin width of the seperation.
-
-* Note that the minimal distance of a point :math:`x` and the separation
-  hyperplane defined by :math:`w` is given by
-
-  .. math::
-
-    \operatorname{dist_w}(x) := \frac{|w\cdot x|}{\|\mathbf w\|};
-
-  recall that :math:`w=(w_0,\mathbf w)`.
-
-* Furthermore, note that the separation of the training data into the classes
-  +1 and -1 given by the signum of :math:`w\cdot x^{(i)}` is scale invariant.
-
-.. todo:: 
-
-    Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
-
-    * Distance between point and hyperplane in normal form.
-    * Scale invariance of :math:`w\cdot x=0`.
-    * Minimization problem has a unique solution.
-
-Soft margin case
-""""""""""""""""
-
-.. todo:: 
-
-    Under construction. See for example :cite:`vapnik_statistical_1998`, :cite:`mohri_foundations_2012`.
-
-    * Minimization problem still has a unique solution.
-    * Meaning of slack variables.
-
