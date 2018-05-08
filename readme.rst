@@ -6,6 +6,7 @@ Mathematics and Applications of Machine Learning
 * **Lecturer:** Dirk - Andre Deckert, deckert@math.lmu.de
 * **Lecture:** Wed 10-12, A027
 * **Tutorials:** Wed 12-14, A027
+* **Git:** https://github.com/dirk-deckert/MAML  
 
 Description 
 -----------

@@ -775,34 +775,23 @@ initializes and trained as follows::
     ppn = Perceptron(X.shape[1])
     ppn.learn(X_train, Y_train, eta=0.1, epochs=100)
 
-Find the full implementation here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/001_iris_perceptron.ipynb>`_] 
+.. container:: sourcecode
 
-.. container:: toggle
+    **SOURCECODE:** `first_steps/001_iris_perceptron.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/001_iris_perceptron.ipynb>`_ 
         
-    .. container:: header
-    
-        Homework
+    A first full implementation of the above implementation of the Perceptron.
 
-    .. container:: homework
+    .. container:: toggle
 
-        Have a look at the Perceptron implementation (link given above):
-                   
-        a. What effect does the learning rate have? Examine a situation is
-        which the learning rate is too high and too low and discuss both cases.
-        
-        b. What happens when the training data cannot be separated by
-        a hyperplane? Examine problematic situation and discuss these -- for
-        example, by generating fictitious data points.
+        .. container:: header
 
-        c. Note that the instant all training data was classified correctly
-        the Perceptron stops to update the weight vector. Is this a feature or
-        a bug?
+            Homework
 
-        d. Discuss the dependency of the learning success on the order in which
-        the training data is presented to the Perceptron. How could the
-        dependency be suppressed?
+        .. container:: homework
 
-        Find an implementation showing different learning behaviors here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/002_iris_perceptron_convergence.ipynb>`_] 
+            Look for other sets of training data, e.g., `UCI Machine Learning Repository <http://archive.ics.uci.edu/ml/datasets.html>`_ 
+            and adapt the Perceptron implementation above to learn from this
+            new training data.
 
 
 Problems with the Perceptron
@@ -818,17 +807,46 @@ Problems with the Perceptron
   which might lead to poor generalization properties of the resulting
   classifier to unknown data.
 
-.. container:: toggle
-        
-    .. container:: header
+.. container:: sourcecode
+
+    **SOURCECODE:** `first_steps/002_iris_perceptron_convergence.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/002_iris_perceptron_convergence.ipynb>`_ 
     
-        Homework
+    In this implementation several learning behaviors of the Perceptron with
+    the Iris data set are demonstrated. 
+    
+    **SOURCECODE:** `first_steps/003_bitwise-AND-and-XOR-gates_perceptron.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/003_bitwise-AND-and-XOR-gates_perceptron.ipynb>`_ 
+    
+    Furthermore, it makes sense to look at the learning behavior in more
+    tractable cases of both linear and non-linear separable data sets. In this 
+    implementation the learning behavior of the logical AND as well
+    as the failure to learn the XOR gate can be observed.
 
-    .. container:: homework
+    .. container:: toggle
+        
+       .. container:: header
+    
+           Homework
 
-        Implement training scenarios for the Perceptron in which you can
-        observe the qualitative behavior described above, i.e., the possible
-        oscillations and the abrupt stop in training.
+       .. container:: homework
+
+           1.  Implement training scenarios for the Perceptron in which you can
+           observe the qualitative behavior described above, i.e., the possible
+           oscillations and the abrupt stop in training.
+           
+           2. What effect does the learning rate have? Examine a situation is
+           which the learning rate is too high and too low and discuss both cases.
+        
+           3. What happens when the training data cannot be separated by
+           a hyperplane? Examine problematic situation and discuss these -- for
+           example, by generating fictitious data points.
+
+           4. Note that the instant all training data was classified correctly
+           the Perceptron stops to update the weight vector. Is this a feature or
+           a bug?
+
+           5. Discuss the dependency of the learning success on the order in which
+           the training data is presented to the Perceptron. How could the
+           dependency be suppressed?
 
 
 Adaline
@@ -1031,11 +1049,21 @@ In conclusion, we may formulate the Adaline algorithm as follows:
            a simple example of training data and a special choice of learning rate
            :math:`\eta`.
 
-        2. What is the influence of large or small values of :math:`\eta`?
+           .. container:: sourcecode
 
-        3. Discuss the advantages/disadvantages of immediate weight updates
-           after misclassification as it was the case for the
-           Perceptron and batch updates as it is the case for Adaline.
+               **SOURCECODE**: `004_adaline-non-convergence.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/004_adaline-non-convergence.ipynb>`_ 
+
+               A small implementation that show such a bad case.
+
+
+        2. What is the influence of large or small values of :math:`\eta`?
+           Discuss qualitatively -- we will discuss that in detail in the next
+           section.
+
+        3. Discuss qualitatively the advantages/disadvantages of immediate
+           weight updates after each misclassification as it was the case for
+           the Perceptron and the batch updates as it is the case for Adaline
+           -- also this we will discuss in more detail in the next section.
 
                    
 Python implementation 
@@ -1099,8 +1127,11 @@ follows::
 * The last two lines in this ``for`` loop compute the loss value for this epoch
   and store it in the list ``train_loss_``.
 
+.. container:: sourcecode
 
-Find the full implementation here: [`Link <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/004_iris_adaline.ipynb>`_] 
+    **SOURCECODE:** `first_steps/004_iris_adaline.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/004_iris_adaline.ipynb>`_ 
+
+    This is a first full implementation of the Adaline discussed above.
 
 
 Learning behavior
@@ -1110,7 +1141,8 @@ Learning behavior
 * Not even in the linear separable case, we may expect convergence of the Adaline algorithm;
 * We can only expect to find a good approximation of the optimal choice of
   weights :math:`w\in\mathbb R^{n+1}`;
-* But the approximation will depend on the choice of the learning rate parameter.
+* But the approximation will depend on the choice of the learning rate parameter as well as on
+  the initial choice of :math:`w`.
 
 In the figure below, the learning rate :math:`\eta` was chosen too large.
 Instead of approximating the minimum value, the gradient descent algorithm even
@@ -1132,7 +1164,7 @@ local minimum instead of the global minimum.
 
 In the special case of a linear activation :math:`\alpha(z)=z` and a quadratic
 loss function such as :eq:`eq-L`, which we also used in our Python
-implementation, such a behavior cannot occur due to convexity. For more general
+implementation, such a behavior cannot occur due to strict convexity. For more general
 activations :math:`\alpha(z)` and loss fuctions :math:`L(w)` that we will
 discuss later there are often non-trivial landscape of local minima.
 
@@ -1165,12 +1197,49 @@ choosing:
     \eta = \frac{c_1}{c_2+t},
 
 where :math:`c_1,c_2\in\mathbb R^+` are two constants and :math:`t` is the
-number of updates. 
+number of updates. The reasoning behind the adaption of the learning rate it
+not to overshoot the minimum as the updates get smaller and smaller forcing the
+updates to converge.
 
+Other algorithms implement Newtonian dynamics including friction on the level
+hypersurface defined by :math:`L(w)` (so that initially there is good potential
+to escape local minima due to the momentum but after the friction accumulates
+the updates become smaller over time) or add a temperature to the motion (in
+order not to get stuck in a local minimium). Here is a nice overview on popular
+optimization algorithms used in machine learning: 
+`An overview of gradient descent optimization algorithms <http://sebastianruder.com/optimizing-gradient-descent/>`_ by Sebastian Ruder.
 
-Here is a nice overview on
-popular optimization algorithms used in machine learning: 
-`[An overview of gradient descent optimization algorithms] <http://sebastianruder.com/optimizing-gradient-descent/>`_ by Sebastian Ruder.
+.. container:: sourcecode
+
+    **SOURCECODE:** `first_steps/004_iris_adaline.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/004_iris_adaline.ipynb>`_ 
+    
+    In this implementation several learning behaviors of the Adaline with the
+    Iris data set are demonstrated. 
+    
+    **SOURCECODE:** `first_steps/005_iris_adaline_convergence.ipynb <https://github.com/dirk-deckert/MAML/blob/master/src/first_steps/005_iris_adaline_convergence.ipynb>`_ 
+    
+    Again, as for the Perceptron Furthermore, it makes sense to look at the
+    learning behavior in more tractable cases of both linear and non-linear
+    separable data sets. In this implementation the learning behavior of the
+    logical AND as well as the failure to learn the XOR gate can be observed.
+
+    .. container:: toggle
+        
+       .. container:: header
+    
+           Homework
+
+       .. container:: homework
+
+           1. Implement training scenarios for the Adaline in which you can
+              observe the qualitative behavior described above, i.e., situations
+              in which the learning rate is too high or too low.
+           2. What happens when the training data cannot be separated by
+              a hyperplane? Examine problematic situation and discuss these -- for
+              example, by generating fictitious data points.
+           3. What happens after the first epoch of training in which the data
+              was successfully separated? Compare with your results on for the
+              Perceptron.
 
 
 Stadardization of training data

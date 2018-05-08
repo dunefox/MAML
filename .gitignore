@@ -8,4 +8,5 @@ sec-test.rst
 *.DS_Store
 *.pyc
 *.swp
+*.csv
 tags

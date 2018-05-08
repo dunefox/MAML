@@ -63,3 +63,10 @@ span.eqno {
     padding: 1em;
     border-radius: 0 0 .5em .5em;
 }
+
+.sourcecode {
+    display: block;
+    background-color: #F2F2F2;
+    padding: 1em;
+    border-radius: .5em;
+}

@@ -1,6 +1,7 @@
 
 Where to go from here?
 ======================
+
 The step from the Perceptron to Adaline mainly brings two advantages:
 
 1. We may make use of analytic optimization theory;
@@ -45,7 +46,7 @@ Sigmoid activation function
 
 One of the widely employed choices in machine learning models that are based on
 the Adaline framework are sigmoid functions. This class of functions is usually
-defined as boded differentiable function :math:`\mathbb R\to\mathbb R` with a
+defined as bouded differentiable function :math:`\mathbb R\to\mathbb R` with a
 non-negative derivative. Two frequent examples are the logistic function
 
 
@@ -103,7 +104,7 @@ there is a third reason why, e.g., the logistic is often preferred over the line
 activation as the former can be interpreted as a probability.
 
 The implementation of a sigmoidal Adaline is straight forward. We replace the
-activation function :math:`alpha` accordingly, compute its derivative and adapt
+activation function :math:`\alpha` accordingly, compute its derivative and adapt
 the update rule :eq:`eq-adaline-update`.  
 
 .. container:: toggle
