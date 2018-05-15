@@ -9,7 +9,7 @@ Mathematics and Applications of Machine Learning
 .. role:: underline
     :class: underline
             
-Version: 2018-05-06
+Version: 2018-05-15
 
 Contents:
 

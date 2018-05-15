@@ -115,25 +115,38 @@ the update rule :eq:`eq-adaline-update`.
 
     .. container:: homework
 
-        1. Adapt our Adaline implemetation to employ the hyperbolic tangent
-           activation function and observe the corresponding learning behavior. 
+        Adapt our Adaline implemetation to employ 
 
-        2. Adapt our Adaline implemetation is some way to employ the logistic
-           activation function and observe the corresponding learning behavior.
+        1. the hyperbolic tangent activation function and
+        2. the logistic function   
+
+        and observe the corresponding learning behavior. 
 
 The implementation for the Iris data set should work out of the box having
 initial weight set to zero. However, one may recognize that the training for
 extreme choices of initial weights will require many epochs of training in
-order to achieve a reasonable accuracy. 
+order to achieve a reasonable accuracy. The following plots illustrate the
+learning behavior of a linear and hyperbolic tangent Adaline: 
+
+.. plot:: ./figures/python/sigmoid-saturation.py
+    :width: 80%
+    :align: center
+
+Both plots show the quadratic loss functions :eq:`eq-L` per iteration of
+training of a linear (left) and a hyperbolic tangent (right) Adaline. Both
+started with an initial weight of :math:`-3` and were presented the signle
+training data element :math:`(x^{(1)},y^{(i)})=(1,1)`. The initial weight
+was chosen far off a reasonable value. Nevertheless, the linear Adaline
+learns to adjust the weight rather quickly while the hyperbolic tangent
+Adaline takes about more than two magnitudes more iteration before a
+significant learning progress can be observed.
 
 For simplicity and to draw a nice connection to statistics, let us look
 at the logistic Adaline model, i.e., the Adaline model with :math:`\alpha(z)`
-being the logistic function :eq:`eq-logistic`.
-
-.. todo::
-    Show plots two plots: One with initial weight equals zero and one for an
-    extreme choice.
-
+being the logistic function :eq:`eq-logistic`. The same line of reasoning that
+will be developed for the logistic Adaline will apply to the hyperbolic tangent
+Adaline in the plot above.
+  
 Looking at our update rule :eq:`eq-adaline-update` we can read off the
 explanation for the slow learning phenomenon. Recall the update rule:
                      
