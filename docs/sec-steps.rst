@@ -1,8 +1,7 @@
 .. highlight:: python
-   :linenothreshold: 3
+    :linenothreshold: 3
 
 .. _FirstSteps:
-
 
 First steps: Linear Classification
 ==================================
@@ -1079,11 +1078,13 @@ follows::
 
         def learn(self, X_train, Y_train, eta=0.01, epochs=1000):
             '''
-            fit training data according to eta and n_iter
-            and log the errors in errors_
+            fit training data according to eta and n_iter and log the errors in
+            errors_
             '''
 
-            # we initialize two list, each for the misclassifications and the cost function
+            # we initialize two list, each for the misclassifications and the
+            # cost function
+
             self.train_errors_ = []
             self.train_loss_ = []
 
