@@ -29,7 +29,7 @@ Source Code
 -----------
 
 * Repository: `GitHub <https://github.com/dirk-deckert/MAML>`_
-* Student Projects: `GitHub <https://github.com/dirk-deckert/MAML>`_
+* Student Projects: `GitHub <https://github.com/dirk-deckert/MAML/tree/master/src/student-projects>`_
 
 Indices and tables
 ==================
