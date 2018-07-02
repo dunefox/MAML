@@ -9,7 +9,7 @@ Mathematics and Applications of Machine Learning
 .. role:: underline
     :class: underline
             
-Version: 2018-05-15
+Version: 2018-07-02
 
 Contents:
 
@@ -21,7 +21,15 @@ Contents:
     sec-intro.rst
     sec-steps.rst
     sec-wheretogo.rst
+    sec-optimization.rst
+    sec-nonlin.rst
     sec-bib.rst
+
+Source Code
+-----------
+
+* Repository: `GitHub <https://github.com/dirk-deckert/MAML>`_
+* Student Projects: `GitHub <https://github.com/dirk-deckert/MAML>`_
 
 Indices and tables
 ==================

@@ -144,7 +144,7 @@ html_theme_options = {
     'body_text_align': 'justify',
     'sidebar_width': '250px',
     'page_width': '1200px',
-    'fixed_sidebar': True,
+    'fixed_sidebar': False,
     'sidebar_collapse': True,
 }
 

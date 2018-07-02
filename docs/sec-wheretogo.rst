@@ -609,7 +609,7 @@ The optimization program :eq:`eq_hard_margin` is very dependent on the
 fluctuation of data points near the margin. Possible outliers in the training
 data near or within the margin dictate how the "optimal" weights :math:`w` have
 to be chosen. To reduce this dependency we shall extend the hard margin program
-to the so-called *soft-margine* program as follows.
+to the so-called *soft-margin* program as follows.
 
 Let us in general allow margin violations but include in the optimization
 program that those have to be minimized. Suppose :math:`x^{(i)}` violates the
@@ -632,8 +632,8 @@ which are illustrated in the following Figure :numref:`fig_soft_margin`
 
 The depth of a potential margin violation of data point :math:`x^{(i)}` can be
 computed following the same strategy as above. First, we compute the orthogonal
-projection :math:`p` of :math:`x^{(i)}` onto the hyperplane :math:`y^{(i)}\,
-w\cdot x=1` as depicted in Figure :numref:`fig_soft_margin`, i.e., the point
+projection :math:`p` of :math:`x^{(i)}` onto the hyperplane :math:`w\cdot x=\pm 1` 
+as depicted in Figure :numref:`fig_soft_margin`, i.e., the point
 :math:`p` is given by the intersection of the straight line
 
 .. math::
@@ -646,23 +646,25 @@ w\cdot x=1` as depicted in Figure :numref:`fig_soft_margin`, i.e., the point
 and the hyperplane
 
 .. math::
-   y^{(i)} w\cdot x = 1.
+   w\cdot x = y^{(i)}
 
+since the label :math:`y^{(i)}` determined the sign on the right-hand side.
 Hence, we have to solve the equation
 
 .. math::
-    y^{(i)} w\cdot x(\alpha) = 1
+    w\cdot x(\alpha) = y^{(i)} 
 
 for :math:`\alpha` which gives
 
 .. math::
-   \alpha = \frac{1 - y^{(i)}\,w\cdot x^{(i)}}{\|\mathbf w\|^2}.
+   \alpha = \frac{|y^{(i)} - w\cdot x^{(i)}|}{\|\mathbf w\|^2}
+   = \frac{|1 - y^{(i)}\,w\cdot x^{(i)}|}{\|\mathbf w\|^2}.
 
 The depth of the margin violation is then given by the distance
 
 .. math::
 
-    \eta^{(i)} = \|p - x^{(i)}\|=\frac{1 - y^{(i)}\,w\cdot x^{(i)}}{\|\mathbf w\|}.
+    \eta^{(i)} = \|p - x^{(i)}\|=\frac{|1 - y^{(i)}\,w\cdot x^{(i)}|}{\|\mathbf w\|}.
 
 In order to allow for margin violations but also minimize them, we may now set up
 the following optimization program
@@ -701,7 +703,7 @@ program can be stated equivalently as
 Implementation
 ~~~~~~~~~~~~~~
 
-In order to arrive at our first naive implementation of the support vector
+In order to arrive at our first, as it will turn out, naive, implementation of the support vector
 machine for the soft margin case, we need to implement a version of the
 optimization program :eq:`eq_soft_margin` and we shall do so in the spirit of
 the Adaline model. Later we will see that this can be done much more elegantly
@@ -863,3 +865,19 @@ the learning rule has to be replaced::
             Implement the support vector machine as mini-batch learner and play
             with the two parameters `mu` and `eta` in scenarios that feature
             margin violations in order to get a feeling about their influence.
+
+First Non-Linear Classification
+-------------------------------
+
+.. todo:: Under construction. See for example :cite:`raschka_python_2015`.
+
+    * Rough notes: :download:`Non-linear extension of the Adaline<./rough-notes/First Non-Linear Classification.pdf>`
+
+
+Multi-Class Classification
+--------------------------
+
+.. todo:: Under construction. See for example :cite:`raschka_python_2015`.
+
+    * Rough notes: :download:`Multi-class extension of the Adaline<./rough-notes/Multiclass Classification.pdf>`
+

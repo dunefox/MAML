@@ -1,7 +1,9 @@
-Optimization theory
+Optimization Theory
 ===================
 
 .. todo:: Under construction. See for example :cite:`vapnik_statistical_1998`.
+
+    * Rough notes: :download:`History <./rough-notes/Introduction to Optimization Theory - History.pdf>`
 
 Existence of optimal solutions
 ------------------------------
@@ -10,34 +12,24 @@ Existence of optimal solutions
 
     Under construction. See for example :cite:`boyd_convex_2004`.
 
-    * Proof that SVMs have a unique optimal solution.
+    * Rough notes: :download:`Existence, uniqueness of optimal solutions<./rough-notes/Introduction to Optimization Theory - Existence, Uniqueness of optimal solutions.pdf>`
+    * Rough notes: :download:`Example SVM<./rough-notes/Introduction to Optimization Theory - Existence, Uniqueness of optimal solutions - Example SVM.pdf>`
 
 Convex optimization
 -------------------
 
-.. todo:: Under construction. See for example :cite:`boyd_convex_2004`, :cite:`jarre_optimierung_2013`.
+.. todo:: Under construction. See for example :cite:`boyd_convex_2004`,
+   :cite:`jarre_optimierung_2013`.
 
-Optimal conditions for constraint convex programs
--------------------------------------------------
+   * Rough notes: :download:`Convex Theory <./rough-notes/Introduction to Optimization Theory - Convex Theory.pdf>`
+   * Rough notes: :download:`Examples incl. SVM<./rough-notes/Introduction to Optimization Theory - Convex Optimization - Examples incl. SVM.pdf>`
+   * Rough notes: :download:`Appendix (Hyperplane separation lemmas)<./rough-notes/Introduction to Optimization Theory - Appendix.pdf>`
 
-.. todo:: Under construction. See for example :cite:`boyd_convex_2004`, :cite:`jarre_optimierung_2013`.
+Lagrange function and Duality
+-----------------------------
 
-    * Derive KKT conditions from hyperplane separation theorems
-    * Apply KKT to example constraint optimization program
-    * Apply KKT to SVM: Meaning of the support vectors
+.. todo:: Under construction. See for example :cite:`boyd_convex_2004`,
+   :cite:`jarre_optimierung_2013`, :cite:`mohri_foundations_2012`.
 
-Lagrange function
------------------
-
-.. todo:: Under construction. See for example :cite:`boyd_convex_2004`, :cite:`jarre_optimierung_2013`.
-
-    * Saddle points
-    * Relation between saddle point of $L$ and KKT conditions
-
-Primal and dual form
---------------------
-
-.. todo:: Under construction. See for example :cite:`boyd_convex_2004`, :cite:`jarre_optimierung_2013`, :cite:`mohri_foundations_2012`.
-
-    * Derive dual form for SVM: Why is this dual form advantageous?
-
+   * Rough notes: :download:`Lagrange Function, Duality<./rough-notes/Introduction to Optimization Theory - Lagrange Function, Duality.pdf>`
+   * Rough notes: :download:`Duality Examples incl. SVM<./rough-notes/Introduction to Optimization Theory - Lagrange Function - Example Duality incl. SVM.pdf>`
